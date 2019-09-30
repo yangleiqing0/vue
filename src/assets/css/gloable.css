@@ -1,0 +1,143 @@
+.el-row {
+    margin-bottom: 20px;
+  }
+  .el-row:last-child {
+  margin-bottom: 0;
+    }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+  .el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+    padding: 0;
+  }
+  .el-aside {
+    background-color: #D3DCE6;
+    color: #333;
+    text-align: center;
+    line-height: 100%;
+  }
+
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+    line-height: 160px;
+  }
+  .el-container:nth-child(5) .el-aside,
+  .el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+  }
+
+  .el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+  }
+    #app {
+      font-family: 'Avenir', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-align: center;
+      color: #2c3e50;
+      height: 100%;
+  }
+    .el-submenu .el-menu-item{
+      min-width: unset;
+    }
+
+     .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
+.el-radio-button__inner{
+  color: white;
+  background-color: #545c64;
+  border-color: #545c64;
+  padding: 12px 35px;
+}
+.el-radio-group{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+ul#menu-left>.el-menu-item{
+  padding: 0 20px 0 0
+}
+.el-menu--horizontal>.el-menu-item.is-active, .el-menu--horizontal>.el-submenu.is-active .el-submenu__title,
+.el-menu--horizontal>.el-submenu .el-submenu__title,.el-menu--horizontal>.el-menu-item.is-active{
+  border: 0;
+}
+a{
+  text-decoration: none;
+}
+html, body{
+  height: 99.1%;
+  width: 99.7%;
+}
+
+section:nth-child(0),section:nth-child(1),
+section:nth-child(2){
+  height: 100%;
+}
+.bck{
+  background-color: #E9EEF3;
+  height: 20px;
+}
+.float-left{
+  float: left;
+}
+.in-block{
+  display: inline-block;
+}
+.am-icon-fw{
+  zoom: 1.3;
+  margin-right: 5px
+}
+
+.el-menu--collapse .el-menu .el-submenu, .el-menu--popup {
+    min-width: 150px;
+}
+
+
+.white{
+  color: white;
+}
+li,a,i{
+  color: white;
+}
+#main{
+  height: 100%;
+
+}
+.el-main {
+  padding: 10px;
+  background-color: #E9EEF3;
+  /*background-color: #545c64;*/
+}
+.el-form-item__label,.el-checkbox__label,.el-radio__label{
+  /*color: white;*/
+}
+.white{
+  color: white;
+}
+.bac-white{
+  background-color: white;
+}
