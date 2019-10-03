@@ -1,12 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from "@/components/home/Home";
-import Login from "@/components/login/Login";
-import Case_list from "@/components/case/Case_list";
-import Job_list from "@/components/job/Job_list";
-import Report_list from "@/components/report/Report_list";
-import Scene_list from '@/components/scene/Scene_list';
+import home from "../components/home/home";
+import login from "../components/login/login";
+
+import case_list from "../components/case/case_list";
+
+import job_list from "../components/job/job_list";
+
+import report_list from "../components/report/report_list";
+
+import scene_list from '../components/scene/scene_list';
+
+import group_list from "../components/group/group_list";
+import group_edit from "../components/group/group_edit";
 
 Vue.use(Router); // 这里别漏掉了
 
@@ -22,13 +29,13 @@ export default new Router({
     {
       path:'/',
       redirect: {
-        name:'Login'
+        path:'/login'
       }
     },
     {
       path: '/login',
-      name:'Login',
-      component:Login,
+      name:'login',
+      component:login,
       meta: {
               title: "登录",
               show: true
@@ -36,42 +43,59 @@ export default new Router({
     },
     {
       path:'/home',
-      name:'Home',
-      component:Home,
+      name:'home',
+      component:home,
       meta: {
               title: "主页",
               show: true
           }
     },
     {
-      path:'/Case_list',
-      component:Case_list,
+      path:'/case_list',
+      component:case_list,
       meta: {
               title: "测试用例",
               show: true
           }
     },
     {
-      path:'/Job_list',
-      component:Job_list,
+      path:'/job_list',
+      component:job_list,
       meta: {
               title: "测试任务",
               show: true
           }
     },
     {
-      path:'/Report_list',
-      component:Report_list,
+      path:'/report_list',
+      component:report_list,
       meta: {
               title: "测试报告",
               show: true
           }
     },
     {
-      path:'/Scene_list',
-      component:Scene_list,
+      path:'/scene_list',
+      component:scene_list,
       meta: {
               title: "场景用例",
+              show: true
+          }
+    },
+    {
+      path:'/group_list',
+      component: group_list,
+      meta: {
+              title: "分组列表",
+              show: true
+          }
+    },
+    {
+      path:'/group_edit',
+      name:'group_edit',
+      component: group_edit,
+      meta: {
+              title: "分组编辑",
               show: true
           }
     }

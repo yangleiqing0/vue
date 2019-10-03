@@ -1,12 +1,12 @@
 <template>
     <div>
-        joblist页面
+        reportlist页面
     </div>
 </template>
 
 <script>
     export default {
-        name:'Job_list',
+        name:'report_list',
         data(){
             return{
 

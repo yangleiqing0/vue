@@ -2,16 +2,17 @@
     <div class="out el-col-10">
         <p class="big">用户登录</p>
        <div id="Login" class="bac-white login">
-            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" size="mini">
+            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" size="mini" >
               <el-form-item label="账号" prop="username">
                 <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="密码" prop="password">
-                <el-input v-model="ruleForm.password"></el-input>
+              <el-form-item label="密码"  prop="password">
+                <el-input type="password" v-model="ruleForm.password"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
+                <el-button @click="clear">忘记密码</el-button>
               </el-form-item>
             </el-form>
         </div>
@@ -20,6 +21,10 @@
 
 <script>
     export default {
+
+        mounted() {
+          this.getlocalStorage()
+        },
         data() {
           var checkUserName = (rule, value, callback) => {
             if (!value) {
@@ -54,21 +59,47 @@
           submitForm(formName) {
             this.$refs[formName].validate((valid) => {
               if (valid) {
-                  this.$axios.post('/api/login', {
-                          'username': this.ruleForm.username,
-                          'password': this.ruleForm.password
-                  }).then(res=> {
-                    this.my_notify(res.data)
-                  }).catch(err => {this.my_notify(err, true)})
-                }else {
+                  let that = this;
+                  that.$axios.post('/api/login', {
+                  'username': that.ruleForm.username,
+                  'password': that.ruleForm.password
+              })
+                      .then(res=> {
+                      that.$root.user_name = that.ruleForm.username;
+                      that.$root.user_id = res.data.user_id;
+                      // that.$router.push('/case_list');
+                      that.$router.push('/group_list');
+
+                      that.setlocalStorage(that.ruleForm.username, that.ruleForm.password, that.$root.user_id);
+                  })
+              }else {
                 return false;
               }
             });
           },
           resetForm(formName) {
             this.$refs[formName].resetFields();
-          }
+          },
+          setlocalStorage:function(c_name, c_pwd, uid) {
+          localStorage['username'] = c_name;
+          localStorage['password'] = c_pwd;
+          localStorage['uid'] = uid
+          },
+          getlocalStorage: function() {
+            this.ruleForm.username = localStorage.getItem('username') ;//保存到保存数据的地方
+            this.ruleForm.password = localStorage.getItem('password')
+          },
+          // 点击忘记密码，清空localStorage里的存储
+          clear: function() {
+            this.setlocalStorage('', '');
+            this.ruleForm.username = '';
+            this.ruleForm.password = ''
+          },
+        },
+        created(){
+          // window.localStorage.clear()
         }
+
   }
 </script>
 

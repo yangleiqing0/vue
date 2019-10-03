@@ -14,15 +14,16 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.19.0",
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.1.1",
     "ajv": "^5.0.0",
     "amaze-vue": "^1.1.18",
-    "axios": "^0.19.0",
     "dependencies": "0.0.1",
     "element-ui": "^2.12.0",
     "install": "^0.13.0",
-    "peer": "^0.2.10",
-    "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "peer": "^0.2.10"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

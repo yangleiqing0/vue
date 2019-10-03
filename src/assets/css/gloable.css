@@ -44,6 +44,9 @@
     text-align: center;
     line-height: 160px;
   }
+  table:first-child{
+    line-height: 0;
+  }
   .el-container:nth-child(5) .el-aside,
   .el-container:nth-child(6) .el-aside {
     line-height: 260px;
@@ -128,7 +131,7 @@ li,a,i{
 
 }
 .el-main {
-  padding: 10px;
+  padding: 0 10px;
   background-color: #E9EEF3;
   /*background-color: #545c64;*/
 }
@@ -140,4 +143,22 @@ li,a,i{
 }
 .bac-white{
   background-color: white;
+}
+.main-title{
+  cursor: default;
+}
+.el-pager li.active,.el-pager li.active+li,.el-pager li, .el-icon-arrow-right:before, .el-icon-arrow-left:before{
+  color: black;
+}
+
+.none{
+  display: none;
+}
+
+.edit{
+  margin-left: 25%;
+  width: 50%
+}
+.el-input.el-input--mini{
+  width:60%
 }
