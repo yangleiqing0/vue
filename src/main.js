@@ -8,13 +8,14 @@ import store from './store/index'
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/css/gloable.css'
 import 'amaze-vue/dist/amaze-vue.css';
-import './components/my-common/my-notification'  //全局公用弹窗方法
+import './components/my-common/my-methods'  //全局公用弹窗方法
 
 Vue.use(AmazeVue);
 
 import Axios from "axios";
 
 // Axios.defaults.baseURL = 'http://127.0.0.1:5000/';
+Axios.defaults.headers['Content-Type'] = 'application/json';
 
 Vue.config.productionTip = false;
 
@@ -41,15 +42,19 @@ Axios.interceptors.request.use(res => {
 //  对每一个axios请求进行预处理
 Axios.interceptors.response.use(res => {
   // 对响应数据做处理
-  // console.log("对响应数据做处理")
-  that.my_notify(res.data);
-  if(res.data){
+  // console.log("对响应数据做处理", res)
+  if(res.data || res.data ===false){
     res = res.data
   }
+  that.my_notify(res);
   return res;
-}, error => {
+}, err => {
   // 对响应错误做处理
-  return that.my_notify(error, true);
+  if(err.data){
+    err = err.data
+  }
+  that.my_notify(err, true);
+  return err;
 });
 
 Vue.prototype.$axios = Axios;
@@ -66,13 +71,13 @@ let that = new Vue({
     }
   },
   created(){
-    if(localStorage.getItem('uid') !== '') {
+    if(localStorage.getItem('uid')) {
       this.user_id = localStorage.getItem('uid')
       this.user_name = localStorage.getItem('username')
     }else if(this.user_id === 0 && localStorage.getItem('uid') === null){
        this.$router.push({path:'/login'})
     }
-    console.log('uid:', this.user_id)
+    console.log('uid app:', this.user_id)
   }
 }).$mount('#app');
 

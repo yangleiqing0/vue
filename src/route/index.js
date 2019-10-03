@@ -15,6 +15,8 @@ import scene_list from '../components/scene/scene_list';
 import group_list from "../components/group/group_list";
 import group_edit from "../components/group/group_edit";
 
+import variable_list from "../components/variable/variable_list";
+import variable_edit from "../components/variable/variable_edit";
 Vue.use(Router); // 这里别漏掉了
 
 // 可以多次点击同一个页面 不会报错
@@ -98,6 +100,25 @@ export default new Router({
               title: "分组编辑",
               show: true
           }
+    },
+
+     {
+      path:'/variable_list',
+      component: variable_list,
+      meta: {
+              title: "变量列表",
+              show: true
+          }
+    },
+    {
+      path:'/variable_edit',
+      name:'variable_edit',
+      component: variable_edit,
+      meta: {
+              title: "变量编辑",
+              show: true
+          }
     }
+
   ]
 })

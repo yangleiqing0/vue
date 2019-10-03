@@ -78,12 +78,13 @@
                   </template>
                   <el-menu-item index="7-1">请求头部</el-menu-item>
                   <el-menu-item index="group_list">用例分组</el-menu-item>
-                  <el-menu-item index="7-3">全局变量</el-menu-item>
+                  <el-menu-item index="variable_list">全局变量</el-menu-item>
                   <el-menu-item index="7-4">邮件变量</el-menu-item>
                   <el-menu-item index="7-5">数据库配置</el-menu-item>
                 </el-submenu>
               <div class="none">
                 <el-menu-item index="group_edit"></el-menu-item>
+                <el-menu-item index="variable_edit"></el-menu-item>
               </div>
           </el-menu>
           <el-main>

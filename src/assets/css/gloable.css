@@ -159,6 +159,28 @@ li,a,i{
   margin-left: 25%;
   width: 50%
 }
-.el-input.el-input--mini{
-  width:60%
+.search {
+  margin-left: 10px;
+  width:15% !important;
+}
+.operate{
+  width:50% !important;
+  display: inline-block;
+}
+.no-padding{
+  padding: 0 !important;
+}
+.no-margin{
+  margin-left: 0 !important;
+}
+.out-operate{
+  line-height: 50px !important;
+  background-color: white;
+  text-align: left;
+}
+.el-pagination {
+  margin-top: 20px;
+}
+.tabListPage{
+  text-align: center;
 }

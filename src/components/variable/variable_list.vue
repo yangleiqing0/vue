@@ -25,7 +25,11 @@
       </el-table-column>
       <el-table-column
         prop="name"
-        label="分组名称">
+        label="变量名称">
+      </el-table-column>
+      <el-table-column
+        prop="value"
+        label="变量的值">
       </el-table-column>
       <el-table-column
         prop="description"
@@ -47,6 +51,7 @@
       </el-table-column>
     </el-table>
     <div class="tabListPage">
+      <div>
        <el-pagination @size-change="handleSizeChange"
                       @current-change="handleCurrentChange"
                       :current-page="currentPage"
@@ -55,6 +60,7 @@
                       :total="totalCount"
                       background>
        </el-pagination>
+      </div>
     </div>
   </div>
 
@@ -62,23 +68,22 @@
 
 <script>
   export default {
-     name:'group_list',
+     name:'variable_list',
      methods: {
          handleEdit(index, row) {
           this.$router.push({
-              name:'group_edit',
+              name:'variable_edit',
               params: row
           })
          },
          handleDelete(index, row) {
                if(row === 'more') row=this.multipleSelection;
-               console.log('dell:', row);
                if(row.length === 0){
                    this.my_notify({info:'未选择数据'})
                }else {
                    this.my_del_confirm(
                        () => {
-                           this.$axios.post('/api/group_del', {
+                           this.$axios.post('/api/variable_del', {
                                'id': row,
                            })
                                .then(() => {
@@ -88,11 +93,11 @@
                }
          },
          request(){
-          this.$axios.get('/api/group_list?user_id='+ this.$root.user_id)
+          this.$axios.get('/api/variable_list?user_id='+ this.$root.user_id)
               .then(res=> {
-                  console.log('groups', res.group_list);
-                  this.tableData = this.tabledata = res.group_list;
-                  this.totalCount=this.total_count= res.group_list.length
+                  console.log('variables', res.variable_list);
+                  this.tableData = this.tabledata = res.variable_list;
+                  this.totalCount=this.total_count= res.variable_list.length
               })
          },
          handleSizeChange(val) {
@@ -101,7 +106,7 @@
              // 注意：在改变每页显示的条数时，要将页码显示到第一页
              this.currentPage=1
          },
-          handleCurrentChange(val) {
+         handleCurrentChange(val) {
              // 改变默认的页数
              this.currentPage=val
          },
@@ -114,17 +119,18 @@
         return {
             search: '',
             tableData:[
-                {name:' ', description:' '},
-                {name:' ', description:' '},
-                {name:' ', description:' '},
-                {name:' ', description:' '},
-                {name:' ', description:' '},
-                {name:' ', description:' '},
-                {name:' ', description:' '},
-                {name:' ', description:' '},
-                {name:' ', description:' '},
-                {name:' ', description:' '},
+                {name:' ', value:' ',description:' '},
+                {name:' ', value:' ',description:' '},
+                {name:' ', value:' ',description:' '},
+                {name:' ', value:' ',description:' '},
+                {name:' ', value:' ',description:' '},
+                {name:' ', value:' ',description:' '},
+                {name:' ', value:' ',description:' '},
+                {name:' ', value:' ',description:' '},
+                {name:' ', value:' ',description:' '},
+                {name:' ', value:' ',description:' '},
                 ],
+
              // 默认显示第几页
             currentPage:1,
              // 总条数，根据接口获取数据长度(注意：这里不能为空)
@@ -140,7 +146,6 @@
       },
       created(){
              this.request();
-
       },
       watch:{
           //  监视搜索栏 进行筛选
