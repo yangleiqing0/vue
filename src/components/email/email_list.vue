@@ -25,11 +25,23 @@
       </el-table-column>
       <el-table-column
         prop="name"
-        label="分组名称">
+        label="邮件名称">
       </el-table-column>
       <el-table-column
-        prop="description"
-        label="备注">
+        prop="subject"
+        label="邮件主题">
+      </el-table-column>
+      <el-table-column
+        prop="to_user_list"
+        label="邮件接收人">
+      </el-table-column>
+      <el-table-column
+        prop="email_method"
+        label="邮件方式">
+        <template slot-scope="scope">
+           <el-tag type="success" effect="dark" v-if="scope.row.email_method ===1">图片</el-tag>
+           <el-tag type="primary" effect="dark" v-if="scope.row.email_method ===2">附件</el-tag>
+        </template>
       </el-table-column>
         <el-table-column align="left">
           <template slot="header" slot-scope="scope">
@@ -62,11 +74,15 @@
 
 <script>
   export default {
-     name:'group_list',
+     name:'email_list',
      methods: {
+         show: function (scope) {
+             console.log('scope', scope)
+         }
+         ,
          handleEdit(index, row) {
           this.$router.push({
-              name:'group_edit',
+              name:'email_edit',
               params: row
           })
          },
@@ -78,7 +94,7 @@
                }else {
                    this.my_del_confirm(
                        () => {
-                           this.$axios.post('/api/group_del', {
+                           this.$axios.post('/api/email_del', {
                                'id': row,
                            })
                                .then(() => {
@@ -88,19 +104,20 @@
                }
          },
          request(){
-          this.$axios.get('/api/group_list?user_id='+ this.$root.user_id)
+          this.$axios.get('/api/email_list?user_id='+ this.$root.user_id)
               .then(res=> {
-                  console.log('groups', res);
+                  console.log('emails', res);
                   this.tableData = this.tabledata = res;
                   this.totalCount=this.total_count= res.length
               })
          },
-         handleSizeChange(val){
+         handleSizeChange(val) {
+         // 改变每页显示的条数
              this.PageSize=val;
              // 注意：在改变每页显示的条数时，要将页码显示到第一页
              this.currentPage=1
          },
-         handleCurrentChange(val) {
+          handleCurrentChange(val) {
              // 改变默认的页数
              this.currentPage=val
          },
@@ -127,10 +144,10 @@
         }
       },
       created(){
-          this.request();
+             this.request();
 
       },
-      watch:{
+     watch:{
           //  监视搜索栏 进行筛选
         search(){
             this.my_search(this)

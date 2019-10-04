@@ -25,7 +25,11 @@
       </el-table-column>
       <el-table-column
         prop="name"
-        label="分组名称">
+        label="请求头部名称">
+      </el-table-column>
+      <el-table-column
+        prop="value"
+        label="请求头部的值">
       </el-table-column>
       <el-table-column
         prop="description"
@@ -47,6 +51,7 @@
       </el-table-column>
     </el-table>
     <div class="tabListPage">
+      <div>
        <el-pagination @size-change="handleSizeChange"
                       @current-change="handleCurrentChange"
                       :current-page="currentPage"
@@ -55,6 +60,7 @@
                       :total="totalCount"
                       background>
        </el-pagination>
+      </div>
     </div>
   </div>
 
@@ -62,23 +68,22 @@
 
 <script>
   export default {
-     name:'group_list',
+     name:'header_list',
      methods: {
          handleEdit(index, row) {
           this.$router.push({
-              name:'group_edit',
+              name:'header_edit',
               params: row
           })
          },
          handleDelete(index, row) {
                if(row === 'more') row=this.multipleSelection;
-               console.log('dell:', row);
                if(row.length === 0){
                    this.my_notify({info:'未选择数据'})
                }else {
                    this.my_del_confirm(
                        () => {
-                           this.$axios.post('/api/group_del', {
+                           this.$axios.post('/api/header_del', {
                                'id': row,
                            })
                                .then(() => {
@@ -88,14 +93,15 @@
                }
          },
          request(){
-          this.$axios.get('/api/group_list?user_id='+ this.$root.user_id)
+          this.$axios.get('/api/header_list?user_id='+ this.$root.user_id)
               .then(res=> {
-                  console.log('groups', res);
+                  console.log('header_list', res);
                   this.tableData = this.tabledata = res;
                   this.totalCount=this.total_count= res.length
               })
          },
-         handleSizeChange(val){
+         handleSizeChange(val) {
+         // 改变每页显示的条数
              this.PageSize=val;
              // 注意：在改变每页显示的条数时，要将页码显示到第一页
              this.currentPage=1
@@ -127,8 +133,7 @@
         }
       },
       created(){
-          this.request();
-
+             this.request();
       },
       watch:{
           //  监视搜索栏 进行筛选

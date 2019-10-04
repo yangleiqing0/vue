@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './assets/css/gloable.css'
 import 'amaze-vue/dist/amaze-vue.css';
 import './components/my-common/my-methods'  //全局公用弹窗方法
+import './components/my-common/my-var'
 
 Vue.use(AmazeVue);
 
@@ -67,7 +68,6 @@ let that = new Vue({
     return {
       user_id:  0,   //全局 全局用户id
       user_name: '用户名称',  //全局用户名
-      PageSize: 10,   //全局每页显示数量
     }
   },
   created(){

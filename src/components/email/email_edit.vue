@@ -1,0 +1,131 @@
+<template>
+  <div class="edit">
+    <div style="margin: 20px;"></div>
+    <el-form :label-position="labelPosition" label-width="100px" :model="EmailForm" size="small" status-icon :rules="rules" ref="EmailForm">
+      <el-form-item label="邮件名称" prop="name">
+        <el-input v-model="EmailForm.name"></el-input>
+      </el-form-item>
+      <el-form-item label="邮件主题" prop="subject">
+        <el-input v-model="EmailForm.subject"></el-input>
+      </el-form-item>
+      <el-form-item label="邮件接收人" prop="to_user_list">
+        <el-input v-model="EmailForm.to_user_list"></el-input>
+      </el-form-item>
+      <el-form-item label="邮件方式" prop="email_method">
+        <el-select v-model="value" placeholder="请选择" class="el-col-24">
+          <el-option
+            v-for="item in $my_email"
+            :key="item.key"
+            :label="item.value"
+            :value="item.key">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('EmailForm')">提交</el-button>
+        <el-button @click="resetForm('EmailForm')">重置</el-button>
+        <el-button @click="back">后退</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+<script>
+  export default {
+    name:'email_edit',
+    data() {
+        var checkName = (rule, value, callback) => {
+          if (!value) {
+            return callback(new Error('不能为空'));
+          }else {
+              this.$axios.post('/api/email_validate', {
+                  name: value,
+                  email_id: this.EmailForm.id})
+                  .then(res=>{
+                      if(res) {
+                          callback();
+                      }else{
+                          return callback(new Error('名称已存在'));
+                      }
+                  });
+          }
+        };
+        var checkUserList = (rule, value, callback) => {
+          if (!value) {
+            return callback(new Error('不能为空'));
+          }else {
+              this.$axios.post('/api/email_user_list_validate', {
+                  to_user_list: value})
+                  .then(res=>{
+                      if(res) {
+                          callback();
+                      }else{
+                          return callback(new Error('格式错误'));
+                      }
+                  });
+          }
+        };
+        return {
+            value: '',
+            EmailForm: {
+                name: '',
+                subject:'',
+                to_user_list:'',
+                email_method: ''
+            },
+            rules: {
+                name: [
+                  { validator: checkName, trigger: 'blur' }
+                ],
+                to_user_list: [
+                { validator: checkUserList, trigger: 'blur' }
+              ]
+            },
+            labelPosition: 'right'
+        };
+      },
+      methods:{
+          getParams(){//接收函数
+              this.EmailForm = this.$route.params;
+              this.value = this.EmailForm.email_method;
+              if (this.value===undefined) this.value =1;
+          },
+          submitForm(formName) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+                this.EmailForm.email_method = this.value;
+                this.$axios.post('/api/email_edit', this.EmailForm)
+                    .then(()=> {
+                    this.$router.push('/email_list');
+
+                })
+            }else {
+              return false;
+            }
+          });
+        },
+          resetForm(formName) {
+            this.$refs[formName].resetFields();
+          },
+          back(){
+              this.$router.go(-1);//返回上一层
+          },
+        },
+      created() {//在模板编译进路由前调用created方法，触发接收函数
+          this.getParams();
+           console.log('created:', this.$my_email, this.value)
+      },
+      beforeCreate() {
+        console.log('before:', this.$my_email, this.value)
+      },
+     watch:{
+          //  监视搜索栏 进行筛选
+        search(){
+            this.my_search(this)
+        },
+         value:function (newV, oldV) {
+            console.log('value:', this.value, this.EmailForm.email_method)
+        }
+      }
+
+  }
+</script>

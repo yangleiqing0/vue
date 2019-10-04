@@ -133,6 +133,7 @@ li,a,i{
 .el-main {
   padding: 0 10px;
   background-color: #E9EEF3;
+  width: 79%;
   /*background-color: #545c64;*/
 }
 .el-form-item__label,.el-checkbox__label,.el-radio__label{
@@ -183,4 +184,12 @@ li,a,i{
 }
 .tabListPage{
   text-align: center;
+}
+
+
+.el-table thead {
+    color: #606266;
+}
+.el-input.el-input--small.el-input--suffix{
+  text-align: left;
 }

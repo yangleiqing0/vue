@@ -17,6 +17,13 @@ import group_edit from "../components/group/group_edit";
 
 import variable_list from "../components/variable/variable_list";
 import variable_edit from "../components/variable/variable_edit";
+
+import header_list from "../components/headers/header_list";
+import header_edit from "../components/headers/header_edit";
+
+import email_list from "../components/email/email_list";
+import email_edit from "../components/email/email_edit";
+
 Vue.use(Router); // 这里别漏掉了
 
 // 可以多次点击同一个页面 不会报错
@@ -116,6 +123,40 @@ export default new Router({
       component: variable_edit,
       meta: {
               title: "变量编辑",
+              show: true
+          }
+    },
+    {
+      path:'/header_list',
+      component: header_list,
+      meta: {
+              title: "请求头部列表",
+              show: true
+          }
+    },
+    {
+      path:'/header_edit',
+      name:'header_edit',
+      component: header_edit,
+      meta: {
+              title: "请求头部编辑",
+              show: true
+          }
+    },
+    {
+      path:'/email_list',
+      component: email_list,
+      meta: {
+              title: "邮件配置列表",
+              show: true
+          }
+    },
+    {
+      path:'/email_edit',
+      name:'email_edit',
+      component: email_edit,
+      meta: {
+              title: "邮件配置编辑",
               show: true
           }
     }
