@@ -76,40 +76,15 @@
   export default {
      name:'email_list',
      methods: {
-         show: function (scope) {
-             console.log('scope', scope)
-         }
-         ,
+
          handleEdit(index, row) {
-          this.$router.push({
-              name:'email_edit',
-              params: row
-          })
+             this.my_edit('email_edit', row, this)
          },
          handleDelete(index, row) {
-               if(row === 'more') row=this.multipleSelection;
-               console.log('dell:', row);
-               if(row.length === 0){
-                   this.my_notify({info:'未选择数据'})
-               }else {
-                   this.my_del_confirm(
-                       () => {
-                           this.$axios.post('/api/email_del', {
-                               'id': row,
-                           })
-                               .then(() => {
-                                   this.request();
-                               })
-                       })
-               }
+             this.my_del('email_del', row, this)
          },
          request(){
-          this.$axios.get('/api/email_list?user_id='+ this.$root.user_id)
-              .then(res=> {
-                  console.log('emails', res);
-                  this.tableData = this.tabledata = res;
-                  this.totalCount=this.total_count= res.length
-              })
+             this.my_request('email_list', this)
          },
          handleSizeChange(val) {
          // 改变每页显示的条数
@@ -145,7 +120,6 @@
       },
       created(){
              this.request();
-
       },
      watch:{
           //  监视搜索栏 进行筛选

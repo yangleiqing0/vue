@@ -25,7 +25,27 @@
       </el-table-column>
       <el-table-column
         prop="name"
-        label="分组名称">
+        label="配置名称">
+      </el-table-column>
+      <el-table-column
+        prop="ip"
+        label="服务器地址">
+      </el-table-column>
+      <el-table-column
+        prop="port"
+        label="服务器端口">
+      </el-table-column>
+      <el-table-column
+        prop="user"
+        label="服务器用户">
+      </el-table-column>
+      <el-table-column
+        prop="password"
+        label="服务器密码">
+      </el-table-column>
+      <el-table-column
+        prop="db_name"
+        label="数据库名">
       </el-table-column>
       <el-table-column
         prop="description"
@@ -47,6 +67,7 @@
       </el-table-column>
     </el-table>
     <div class="tabListPage">
+      <div>
        <el-pagination @size-change="handleSizeChange"
                       @current-change="handleCurrentChange"
                       :current-page="currentPage"
@@ -55,6 +76,7 @@
                       :total="totalCount"
                       background>
        </el-pagination>
+      </div>
     </div>
   </div>
 
@@ -62,18 +84,19 @@
 
 <script>
   export default {
-     name:'group_list',
+     name:'mysql_list',
      methods: {
          handleEdit(index, row) {
-          this.my_edit('group_edit', row, this)
+          this.my_edit('mysql_edit', row, this)
          },
          handleDelete(index, row) {
-             this.my_del('group_del', row, this)
+             this.my_del('mysql_del', row, this)
          },
          request(){
-             this.my_request('group_list', this)
+             this.my_request('mysql_list', this)
          },
-         handleSizeChange(val){
+         handleSizeChange(val) {
+         // 改变每页显示的条数
              this.PageSize=val;
              // 注意：在改变每页显示的条数时，要将页码显示到第一页
              this.currentPage=1
@@ -90,7 +113,7 @@
       data() {
         return {
             search: '',
-            tableData:this.$my_table,
+             tableData:this.$my_table,
              // 默认显示第几页
             currentPage:this.$currentPage,
              // 总条数，根据接口获取数据长度(注意：这里不能为空)
@@ -105,8 +128,7 @@
         }
       },
       created(){
-          this.request();
-
+             this.request();
       },
       watch:{
           //  监视搜索栏 进行筛选

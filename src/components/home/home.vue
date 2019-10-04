@@ -26,9 +26,9 @@
           <el-menu-item index="4"><a href="" target="_blank">订单管理</a></el-menu-item>
           <div class="in-block el-col-2 el-col-offset-16">
               <i class="am-icon-user am-icon-fw"></i>
-              <span class="white main-title">{{this.$root.user_name}}</span>
+              <span class="white main-title">{{this.$root.$user_name}}</span>
 
-              <router-link v-if="this.$root.user_name ==='用户名称'" :to="{name:'login'}" type="button">
+              <router-link v-if="this.$root.$user_name ==='用户名称'" :to="{name:'login'}" type="button">
                 <button>请登录</button>
               </router-link>
               <span v-else @click="logout">
@@ -80,23 +80,25 @@
                   <el-menu-item index="group_list">用例分组</el-menu-item>
                   <el-menu-item index="variable_list">全局变量</el-menu-item>
                   <el-menu-item index="email_list">邮件配置</el-menu-item>
-                  <el-menu-item index="7-5">数据库配置</el-menu-item>
+                  <el-menu-item index="mysql_list">数据库配置</el-menu-item>
                 </el-submenu>
               <div class="none">
                 <el-menu-item index="group_edit"></el-menu-item>
                 <el-menu-item index="variable_edit"></el-menu-item>
                 <el-menu-item index="email_edit"></el-menu-item>
+                <el-menu-item index="mysql_edit"></el-menu-item>
               </div>
           </el-menu>
           <el-main>
               <router-view></router-view>
           </el-main>
-          <el-menu default-active="1-4-1" class="el-menu-vertical-demo"
+          <el-menu default-active="1-4-1" class="el-menu-vertical-demo white left"
                @open="handleOpen" @close="handleClose"
                :collapse="Right_isCollapse"
                background-color="#545c64"
-               text-color="#fff"
-                  active-text-color="#ffd04b" style="border-right: 0;border-left:solid 1px #e6e6e6"></el-menu>
+               text-color="#fff" active-text-color="#ffd04b"  style="border-right: 0;border-left:solid 1px #e6e6e6">
+            {{this.$root.$user_name}}
+          </el-menu>
         </el-container>
       </el-container>
       <div class="bck"></div>
@@ -128,7 +130,6 @@
         },
         data() {
         return{
-             username: this.$root.user_name,
              activeIndex: '1',
              activeIndex2: '1',
              Left_isCollapse: false,
@@ -149,10 +150,7 @@
               console.log(key, keyPath);
             },
             logout(){
-              this.$root.user_name = '用户名称';
-              localStorage.removeItem('uid');
-              this.$router.push('/login');
-              this.my_notify({msg:'登出成功'})
+              this.my_logout()
             }
       },
         updated:function () {

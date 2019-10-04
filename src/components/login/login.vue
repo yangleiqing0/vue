@@ -65,12 +65,12 @@
                   'password': that.ruleForm.password
               })
                       .then(res=> {
-                      that.$root.user_name = that.ruleForm.username;
-                      that.$root.user_id = res.data.user_id;
+                      that.$root.$user_name = that.ruleForm.username;
+                      that.$root.$user_id = res.data.user_id;
                       // that.$router.push('/case_list');
                       that.$router.push('/group_list');
 
-                      that.setlocalStorage(that.ruleForm.username, that.ruleForm.password, that.$root.user_id);
+                      that.setlocalStorage(that.ruleForm.username, that.ruleForm.password, that.$root.$user_id);
                   })
               }else {
                 return false;

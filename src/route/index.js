@@ -24,6 +24,8 @@ import header_edit from "../components/headers/header_edit";
 import email_list from "../components/email/email_list";
 import email_edit from "../components/email/email_edit";
 
+import mysql_list from "../components/mysql/mysql_list";
+import mysql_edit from "../components/mysql/mysql_edit";
 Vue.use(Router); // 这里别漏掉了
 
 // 可以多次点击同一个页面 不会报错
@@ -157,6 +159,23 @@ export default new Router({
       component: email_edit,
       meta: {
               title: "邮件配置编辑",
+              show: true
+          }
+    },
+    {
+      path:'/mysql_list',
+      component: mysql_list,
+      meta: {
+              title: "数据库配置列表",
+              show: true
+          }
+    },
+    {
+      path:'/mysql_edit',
+      name:'mysql_edit',
+      component: mysql_edit,
+      meta: {
+              title: "数据库配置编辑",
               show: true
           }
     }

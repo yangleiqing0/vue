@@ -70,35 +70,15 @@
   export default {
      name:'variable_list',
      methods: {
+
          handleEdit(index, row) {
-          this.$router.push({
-              name:'variable_edit',
-              params: row
-          })
+          this.my_edit('variable_edit', row, this)
          },
          handleDelete(index, row) {
-               if(row === 'more') row=this.multipleSelection;
-               if(row.length === 0){
-                   this.my_notify({info:'未选择数据'})
-               }else {
-                   this.my_del_confirm(
-                       () => {
-                           this.$axios.post('/api/variable_del', {
-                               'id': row,
-                           })
-                               .then(() => {
-                                   this.request();
-                               })
-                       })
-               }
+             this.my_del('variable_del', row, this)
          },
          request(){
-          this.$axios.get('/api/variable_list?user_id='+ this.$root.user_id)
-              .then(res=> {
-                  console.log('variables', res);
-                  this.tableData = this.tabledata = res;
-                  this.totalCount=this.total_count= res.length
-              })
+             this.my_request('variable_list', this)
          },
          handleSizeChange(val) {
          // 改变每页显示的条数

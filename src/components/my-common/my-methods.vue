@@ -99,6 +99,46 @@
         };
 
 
+  Vue.prototype.my_edit =  function(route, row, that) {
+          that.$router.push({
+              name:route,
+              params: row
+          })
+         };
+
+  Vue.prototype.my_del = function (route, row, that) {
+               if(row === 'more') row=that.multipleSelection;
+               if(row.length === 0){
+                   that.my_notify({info:'未选择数据'})
+               }else {
+                   that.my_del_confirm(
+                       () => {
+                           that.$axios.post(that.$root.$api + route, {
+                               'id': row,
+                           })
+                               .then(() => {
+                                   that.request();
+                               })
+                       })
+               }
+         };
+
+  Vue.prototype.my_request = function (route, that){
+          that.$axios.get(that.$root.$api + route + '?user_id='+ that.$root.$user_id)
+              .then(res=> {
+                  that.tableData = that.tabledata = res;
+                  that.totalCount=that.total_count= res.length
+              })
+         };
+
+  Vue.prototype.my_logout = function (err=false) {
+      this.$root.$user_name = '用户名称';
+      if(!err) {
+          this.$axios.get('/api/logout');
+      }
+      localStorage.removeItem('uid');
+      this.$router.push('/login');
+  };
 
   export default {
 

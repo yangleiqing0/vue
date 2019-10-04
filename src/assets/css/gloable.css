@@ -190,6 +190,6 @@ li,a,i{
 .el-table thead {
     color: #606266;
 }
-.el-input.el-input--small.el-input--suffix{
+.el-input.el-input--small.el-input--suffix,.left{
   text-align: left;
 }

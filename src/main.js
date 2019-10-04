@@ -26,16 +26,16 @@ Axios.interceptors.request.use(res => {
   // 对响应数据做处理
   // console.log("对响应数据做处理")
   if(res.method === 'post'){
-    if(that.$root.user_id !== 0){
-      res.data['user_id'] = that.$root.user_id
+    if(that.$root.$user_id !== 0){
+      res.data['user_id'] = that.$root.$user_id
     }
   }else{
     console.log(res.baseURL)
-    // res.params['user_id'] = that.$root.user_id
   }
 
-  console.log('request', res.params, that.$root.user_id);
+  console.log('request',res, res.params, that.$root.$user_id);
   return res
+
 });
 
 
@@ -47,7 +47,11 @@ Axios.interceptors.response.use(res => {
   if(res.data || res.data ===false){
     res = res.data
   }
+  if(res.out){
+    that.my_logout(true)
+  }
   that.my_notify(res);
+  console.log('response', res)
   return res;
 }, err => {
   // 对响应错误做处理
@@ -56,7 +60,8 @@ Axios.interceptors.response.use(res => {
   }
   that.my_notify(err, true);
   return err;
-});
+}
+);
 
 Vue.prototype.$axios = Axios;
 
@@ -66,18 +71,16 @@ let that = new Vue({
   store,
   data(){
     return {
-      user_id:  0,   //全局 全局用户id
-      user_name: '用户名称',  //全局用户名
     }
   },
   created(){
     if(localStorage.getItem('uid')) {
-      this.user_id = localStorage.getItem('uid')
-      this.user_name = localStorage.getItem('username')
-    }else if(this.user_id === 0 && localStorage.getItem('uid') === null){
+      this.$root.$user_id = localStorage.getItem('uid')
+      this.$root.$user_name = localStorage.getItem('username')
+    }else if(this.$root.$user_id === 0 && localStorage.getItem('uid') === null){
        this.$router.push({path:'/login'})
     }
-    console.log('uid app:', this.user_id)
+    console.log('uid app:', this.$root.$user_id)
   }
 }).$mount('#app');
 
@@ -86,12 +89,12 @@ let that = new Vue({
 
 
 router.beforeEach((to, from, next) => {
-  console.log('router', that.$root.user_name)
+  console.log('router', that.$root.$user_name);
   /* 路由发生变化修改页面title */
   if(to.path === '/login'){
     next()
   }else {
-    if (that.$root.user_id === 0) {
+    if (that.$root.$user_id === 0) {
       that.my_notify('请登录后访问', true);
       next({path: '/login'})
     }else {
