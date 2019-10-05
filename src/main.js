@@ -48,7 +48,7 @@ Axios.interceptors.response.use(res => {
     res = res.data
   }
   if(res.out){
-    that.my_logout(true)
+    that.my_logout(false, res.out)
   }
   that.my_notify(res);
   console.log('response', res)

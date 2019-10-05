@@ -131,14 +131,17 @@
               })
          };
 
-  Vue.prototype.my_logout = function (err=false) {
+  Vue.prototype.my_logout = function (err=true, data=null) {
       this.$root.$user_name = '用户名称';
-      if(!err) {
+      if (err) {
           this.$axios.get('/api/logout');
+      }else{
+          this.my_notify(data,true)
       }
       localStorage.removeItem('uid');
       this.$router.push('/login');
-  };
+
+  }
 
   export default {
 

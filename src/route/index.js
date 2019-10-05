@@ -9,6 +9,7 @@ import case_list from "../components/case/case_list";
 import job_list from "../components/job/job_list";
 
 import report_list from "../components/report/report_list";
+import report_email from "../components/report/report_email";
 
 import scene_list from '../components/scene/scene_list';
 
@@ -26,6 +27,8 @@ import email_edit from "../components/email/email_edit";
 
 import mysql_list from "../components/mysql/mysql_list";
 import mysql_edit from "../components/mysql/mysql_edit";
+
+
 Vue.use(Router); // 这里别漏掉了
 
 // 可以多次点击同一个页面 不会报错
@@ -82,6 +85,15 @@ export default new Router({
       component:report_list,
       meta: {
               title: "测试报告",
+              show: true
+          }
+    },
+    {
+      path:'/report_email',
+      name:'report_email',
+      component:report_email,
+      meta: {
+              title: "报告发送",
               show: true
           }
     },

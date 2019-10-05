@@ -67,7 +67,7 @@
                   <i class="am-icon-tasks am-icon-fw"></i>
                   <span slot="title">测试任务</span>
                 </el-menu-item>
-                <el-menu-item index="6" style="padding-left: 0">
+                <el-menu-item index="report_email" style="padding-left: 0">
                   <i class="el-icon-setting"></i>
                   <span slot="title">项目统计</span>
                 </el-menu-item>
@@ -87,6 +87,7 @@
                 <el-menu-item index="variable_edit"></el-menu-item>
                 <el-menu-item index="email_edit"></el-menu-item>
                 <el-menu-item index="mysql_edit"></el-menu-item>
+                <el-menu-item index="report_email"></el-menu-item>
               </div>
           </el-menu>
           <el-main>

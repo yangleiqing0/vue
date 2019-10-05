@@ -2,9 +2,6 @@
   <div class="edit">
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="100px" :model="EmailForm" size="small" status-icon :rules="rules" ref="EmailForm">
-      <el-form-item label="邮件名称" prop="name">
-        <el-input v-model="EmailForm.name"></el-input>
-      </el-form-item>
       <el-form-item label="邮件主题" prop="subject">
         <el-input v-model="EmailForm.subject"></el-input>
       </el-form-item>
@@ -12,7 +9,7 @@
         <el-input v-model="EmailForm.to_user_list"></el-input>
       </el-form-item>
       <el-form-item label="邮件方式" prop="email_method">
-        <el-select v-model="value" placeholder="请选择" class="el-col-24">
+        <el-select v-model="value" placeholder="请选择" class="el-col-24" value="">
           <el-option
             v-for="item in $my_email"
             :key="item.key"
@@ -31,24 +28,8 @@
 </template>
 <script>
   export default {
-    name:'email_edit',
+    name:'report_email',
     data() {
-        var checkName = (rule, value, callback) => {
-          if (!value) {
-            return callback(new Error('不能为空'));
-          }else {
-              this.$axios.post('/api/email_validate', {
-                  name: value,
-                  email_id: this.EmailForm.id})
-                  .then(res=>{
-                      if(res) {
-                          callback();
-                      }else{
-                          return callback(new Error('名称已存在'));
-                      }
-                  });
-          }
-        };
         var checkUserList = (rule, value, callback) => {
           if (!value) {
             return callback(new Error('不能为空'));
@@ -65,17 +46,14 @@
           }
         };
         return {
-            value: '',
+            value: 2,
             EmailForm: {
-                name: '',
                 subject:'',
                 to_user_list:'',
-                email_method: ''
+                email_method: '',
+                report_id:'',
             },
             rules: {
-                name: [
-                  { validator: checkName, trigger: 'blur' }
-                ],
                 to_user_list: [
                 { validator: checkUserList, trigger: 'blur' }
               ]
@@ -84,19 +62,17 @@
         };
       },
       methods:{
-          getParams(){//接收函数
-              this.EmailForm = this.$route.params;
-              this.value = this.EmailForm.email_method;
-              if (this.value===undefined) this.value =1;
+         getParams(){//接收函数
+              this.EmailForm.report_id = this.$route.params.id;
+              console.log('g', this.EmailForm.report_id)
           },
           submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
                 this.EmailForm.email_method = this.value;
-                this.$axios.post('/api/email_edit', this.EmailForm)
+                this.$router.push('/report_list');
+                this.$axios.post('/api/report_email', this.EmailForm)
                     .then(()=> {
-                    this.$router.push('/email_list');
-
                 })
             }else {
               return false;
