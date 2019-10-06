@@ -88,17 +88,19 @@
                 <el-menu-item index="email_edit"></el-menu-item>
                 <el-menu-item index="mysql_edit"></el-menu-item>
                 <el-menu-item index="report_email"></el-menu-item>
+                <el-menu-item index="case_edit"></el-menu-item>
               </div>
           </el-menu>
           <el-main>
               <router-view></router-view>
           </el-main>
           <el-menu default-active="1-4-1" class="el-menu-vertical-demo white left"
-               @open="handleOpen" @close="handleClose"
+               @open="handleOpen" @close="handleClose" id="show_msg"
                :collapse="Right_isCollapse"
                background-color="#545c64"
-               text-color="#fff" active-text-color="#ffd04b"  style="border-right: 0;border-left:solid 1px #e6e6e6">
-            {{this.$root.$user_name}}
+               text-color="#fff" active-text-color="#ffd04b"  style="border-right: 0;border-left:solid 1px #e6e6e6 ;
+               word-break: break-all;word-wrap: break-word; padding: 10px" >
+
           </el-menu>
         </el-container>
       </el-container>
@@ -126,17 +128,19 @@
 
 <script>
 
+
     export default {
         components: {
         },
         data() {
         return{
+             home_show: '',
              activeIndex: '1',
              activeIndex2: '1',
              Left_isCollapse: false,
              Right_isCollapse:false,
            }
-      },
+         },
         methods: {
             handleSelect(key, keyPath) {
               // eslint-disable-next-line no-console
@@ -155,6 +159,9 @@
             }
       },
         updated:function () {
+        },
+        created() {
+            this.run_result()
         }
 
     }

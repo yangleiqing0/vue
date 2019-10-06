@@ -13,7 +13,8 @@ export default {
       home:home
   },
   data() {
-        return{}
+        return{
+        }
     },
   methods: {
 

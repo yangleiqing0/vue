@@ -5,6 +5,7 @@ import home from "../components/home/home";
 import login from "../components/login/login";
 
 import case_list from "../components/case/case_list";
+import case_edit from "../components/case/case_edit";
 
 import job_list from "../components/job/job_list";
 
@@ -69,6 +70,15 @@ export default new Router({
       component:case_list,
       meta: {
               title: "测试用例",
+              show: true
+          }
+    },
+    {
+      path:'/case_edit',
+      name:'case_edit',
+      component:case_edit,
+      meta: {
+              title: "用例编辑",
               show: true
           }
     },

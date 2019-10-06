@@ -64,7 +64,6 @@
       methods:{
          getParams(){//接收函数
               this.EmailForm.report_id = this.$route.params.id;
-              console.log('g', this.EmailForm.report_id)
           },
           submitForm(formName) {
           this.$refs[formName].validate((valid) => {
@@ -88,7 +87,6 @@
         },
       created() {//在模板编译进路由前调用created方法，触发接收函数
           this.getParams();
-           console.log('created:', this.$my_email, this.value)
-      }
+    }
   }
 </script>

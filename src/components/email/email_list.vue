@@ -39,8 +39,8 @@
         prop="email_method"
         label="邮件方式">
         <template slot-scope="scope">
-           <el-tag type="success" effect="dark" v-if="scope.row.email_method ===1">图片</el-tag>
-           <el-tag type="primary" effect="dark" v-if="scope.row.email_method ===2">附件</el-tag>
+           <span v-if="scope.row.email_method ===1">图片</span>
+           <span v-if="scope.row.email_method ===2">附件</span>
         </template>
       </el-table-column>
         <el-table-column align="left">

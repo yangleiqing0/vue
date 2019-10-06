@@ -14,6 +14,7 @@
   Vue.prototype.$pageSizes = [1,2,5,10];
   Vue.prototype.$pageSizes = [1,2,5,10];
   Vue.prototype.$PageSize = 10;   //全局每页显示数量
+  Vue.prototype.$run_result = '';
 
   export default {
         name: "my-var"

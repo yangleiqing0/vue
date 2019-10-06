@@ -126,8 +126,13 @@
   Vue.prototype.my_request = function (route, that){
           that.$axios.get(that.$root.$api + route + '?user_id='+ that.$root.$user_id)
               .then(res=> {
-                  that.tableData = that.tabledata = res;
-                  that.totalCount=that.total_count= res.length
+                  if (route === 'case_list') {
+                      that.groups = res.groups;
+                      that.headers = res.headers;
+                      that.mysqls = res.mysqls
+                  }
+                  that.tableData = that.tabledata = res.list;
+                  that.totalCount=that.total_count= res.list.length
               })
          };
 
@@ -141,6 +146,20 @@
       localStorage.removeItem('uid');
       this.$router.push('/login');
 
+  };
+
+  Vue.prototype.my_run = function () {
+      document.querySelector('#show_msg').innerHTML = this.$root.$run_result
+  };
+
+  Vue.prototype.test_run = function (route, row, that) {
+      this.$axios.post(that.$root.$api + route, row)
+                  .then(res=>{
+                      that.$root.$run_result = res;
+                  }).catch(err=>{
+                      that.$root.$run_result = err
+              });
+              this.my_run()
   }
 
   export default {
