@@ -24,7 +24,7 @@
           </el-submenu>
           <el-menu-item index="3" disabled>消息中心</el-menu-item>
           <el-menu-item index="4"><a href="" target="_blank">订单管理</a></el-menu-item>
-          <div class="in-block el-col-2 el-col-offset-16">
+          <div class="in-block el-col-3 el-col-offset-15">
               <i class="am-icon-user am-icon-fw"></i>
               <span class="white main-title">{{this.$root.$user_name}}</span>
 
@@ -161,7 +161,7 @@
         updated:function () {
         },
         created() {
-            this.run_result()
+
         }
 
     }

@@ -138,6 +138,7 @@
 
   Vue.prototype.my_logout = function (err=true, data=null) {
       this.$root.$user_name = '用户名称';
+      this.$root.$user_id = 0;
       if (err) {
           this.$axios.get('/api/logout');
       }else{
@@ -156,10 +157,12 @@
       this.$axios.post(that.$root.$api + route, row)
                   .then(res=>{
                       that.$root.$run_result = res;
+                      this.my_run()
                   }).catch(err=>{
-                      that.$root.$run_result = err
+                      that.$root.$run_result = err;
+                      this.my_run()
               });
-              this.my_run()
+
   }
 
   export default {

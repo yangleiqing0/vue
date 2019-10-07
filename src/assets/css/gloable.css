@@ -193,4 +193,16 @@ li,a,i{
 .el-input.el-input--small.el-input--suffix,.left{
   text-align: left;
 }
+.padding-top{
+  margin-top: 14px;
+  display: inline-block;
+}
 
+.top-3{
+  margin-top: 5px;
+}
+.my_btn{
+  background: #FFF;
+   line-height: 1;
+  border: 1px solid #DCDFE6;
+}

@@ -1,18 +1,31 @@
 <template>
   <div class="app">
     <div class="el-col-24 out-operate">
-      <el-input
+      <div  style="min-width: 500px">
+        <el-input
               v-model="search"
               size="mini"
               placeholder="输入关键字搜索 " class="no-padding search "/>
-            <div class="no-padding operate">
+           <div class="no-padding operate">
               <el-button
               size="mini"
-              @click="handleEdit(0, '')" class=" no-margin">添加</el-button>
+              @click="handleEdit(0, '')" class="no-margin top-3">添加</el-button>
+               <form :action="href+'/case_upload'" method="post" enctype="multipart/form-data" style="margin-top: -6px;float: left">
+                  <div class="padding-top">
+                    <input type="file" id="upload_xlsx" name="upload_xlsx" class="el-button el-button--mini" style="width: 170px;padding: 2px;">
+                  </div>
+                  <div class="padding-top" style="margin-top: 8px;padding-right: 4px">
+                      <input type="submit" value="上传" class="el-button el-button--mini">
+                  </div>
+              </form>
+              <el-link   :underline=false  type="primary" :href="href+'/case_download'" style="margin-top: 2px"><el-button
+              size="mini"
+              >下载</el-button></el-link>
               <el-button
               size="mini"
-              @click="handleDelete(0, 'more')" class=" no-margin">批量删除</el-button>
+              @click="handleDelete(0, 'more')" class=" no-margin top-3">批量删除</el-button>
             </div>
+        </div>
     </div>
     <el-table
       border
@@ -141,6 +154,7 @@
        },
       data() {
         return {
+            href: this.$root.$api,
             search: '',
             groups:'',
             headers:'',
