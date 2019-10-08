@@ -163,7 +163,8 @@
                       this.my_run()
               });
 
-  }
+  };
+
 
   export default {
 
