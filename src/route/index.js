@@ -13,6 +13,7 @@ import report_list from "../components/report/report_list";
 import report_email from "../components/report/report_email";
 
 import scene_list from '../components/scene/scene_list';
+import scene_edit from "../components/scene/scene_edit";
 
 import group_list from "../components/group/group_list";
 import group_edit from "../components/group/group_edit";
@@ -112,6 +113,15 @@ export default new Router({
       component:scene_list,
       meta: {
               title: "场景用例",
+              show: true
+          }
+    },
+    {
+      path:'/scene_edit',
+      component:scene_edit,
+      name:'scene_edit',
+      meta: {
+              title: "场景编辑",
               show: true
           }
     },

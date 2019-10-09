@@ -65,6 +65,9 @@
                   'password': that.ruleForm.password
               })
                       .then(res=> {
+                          if(res.err){
+                              return false
+                          }
                       that.$root.$user_name = that.ruleForm.username;
                       that.$root.$user_id = res.data.user_id;
                       // that.$router.push('/case_list');

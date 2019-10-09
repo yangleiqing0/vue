@@ -99,7 +99,7 @@
             @click="handleEdit(scope.$index, scope.row)" class="no-margin">编辑</el-button>
           <el-button
             size="mini"
-            @click="test_(scope.$index, scope.row)" class="no-margin">运行</el-button>
+            @click="test_(scope.$index, scope.row)" class="no-margin" type="primary">运行</el-button>
           <el-button
             size="mini"
             type="danger"

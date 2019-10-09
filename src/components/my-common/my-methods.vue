@@ -130,6 +130,10 @@
                       that.groups = res.groups;
                       that.headers = res.headers;
                       that.mysqls = res.mysqls
+                  }else if(route === 'scene_list'){
+                       that.groups = res.groups;
+                       that.model_scenes = res.model_scenes;
+                       that.model_cases = res.model_cases
                   }
                   that.tableData = that.tabledata = res.list;
                   that.totalCount=that.total_count= res.list.length
