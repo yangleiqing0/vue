@@ -18,9 +18,10 @@
       border
       style="width: 100%"
       row-key="id"
-      :data="tableData.slice((currentPage-1)*PageSize,currentPage*PageSize)"
+      :data="tableData"
       @selection-change="handleSelectionChange"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
+      <!--      :data="tableData.slice((currentPage-1)*PageSize,currentPage*PageSize)"-->
       <el-table-column
         type="selection"
         width="55">
@@ -83,11 +84,13 @@
          handleSizeChange(val){
              this.PageSize=val;
              // 注意：在改变每页显示的条数时，要将页码显示到第一页
-             this.currentPage=1
+             this.currentPage=1;
+             this.request()
          },
          handleCurrentChange(val) {
              // 改变默认的页数
-             this.currentPage=val
+             this.currentPage=val;
+             this.request()
          },
          handleSelectionChange(val){
              // 改变勾选的行
@@ -97,10 +100,12 @@
       data() {
         return {
             search: '',
-            groups:'',
-            model_scenes:'',
-            model_cases:'',
-            tableData:this.$my_table,
+            groups:this.$root.$groups,
+            model_scenes:this.model_scenes,
+            model_cases:this.$model_cases,
+            tableData:this.$my_table.scene_list,
+            searchDate:'',
+            searchCount:'',
              // 默认显示第几页
             currentPage:this.$currentPage,
              // 总条数，根据接口获取数据长度(注意：这里不能为空)

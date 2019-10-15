@@ -17,7 +17,7 @@
     <el-table
       border
       style="width: 100%"
-      :data="tableData.slice((currentPage-1)*PageSize,currentPage*PageSize)"
+      :data="tableData"
       @selection-change="handleSelectionChange">
       <el-table-column
         type="selection"
@@ -99,11 +99,13 @@
          // 改变每页显示的条数
              this.PageSize=val;
              // 注意：在改变每页显示的条数时，要将页码显示到第一页
-             this.currentPage=1
+             this.currentPage=1;
+             this.request()
          },
          handleCurrentChange(val) {
              // 改变默认的页数
-             this.currentPage=val
+             this.currentPage=val;
+             this.request()
          },
          handleSelectionChange(val){
              // 改变勾选的行
@@ -113,7 +115,7 @@
       data() {
         return {
             search: '',
-             tableData:this.$my_table,
+             tableData:this.$my_table.mysql_list,
              // 默认显示第几页
             currentPage:this.$currentPage,
              // 总条数，根据接口获取数据长度(注意：这里不能为空)

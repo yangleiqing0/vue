@@ -72,7 +72,7 @@
                       that.$root.$user_id = res.data.user_id;
                       // that.$router.push('/case_list');
                       that.$router.push('/group_list');
-
+                      that.my_all_request();
                       that.setlocalStorage(that.ruleForm.username, that.ruleForm.password, that.$root.$user_id);
                   })
               }else {

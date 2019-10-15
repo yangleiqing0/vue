@@ -13,6 +13,7 @@ import './components/my-common/my-var'
 
 Vue.use(AmazeVue);
 
+
 import Axios from "axios";
 
 // Axios.defaults.baseURL = 'http://127.0.0.1:5000/';
@@ -80,7 +81,8 @@ let that = new Vue({
     }else if(this.$root.$user_id === 0 && localStorage.getItem('uid') === null){
        this.$router.push({path:'/login'})
     }
-    console.log('uid app:', this.$root.$user_id)
+    console.log('uid app:', this.$root.$user_id);
+    this.my_all_request();
   }
 }).$mount('#app');
 

@@ -123,20 +123,23 @@
                }
          };
 
-  Vue.prototype.my_request = function (route, that){
-          that.$axios.get(that.$root.$api + route + '?user_id='+ that.$root.$user_id)
+  Vue.prototype.my_request = function (route, that, all=false, page=1, pagesize=10){
+          that.$axios.post(that.$root.$api + route, {
+              page: that.currentPage || page,
+              pagesize:that.PageSize || pagesize,
+          })
               .then(res=> {
-                  if (route === 'case_list') {
-                      that.groups = res.groups;
-                      that.headers = res.headers;
-                      that.mysqls = res.mysqls
-                  }else if(route === 'scene_list'){
-                       that.groups = res.groups;
-                       that.model_scenes = res.model_scenes;
-                       that.model_cases = res.model_cases
+                  if(res.groups) that.$root.$groups = res.groups;
+                  if(res.headers) that.$root.$headers = res.headers;
+                  if(res.mysqls) that.$root.$mysqls = res.mysqls;
+                  if(res.model_scenes) that.$root.$model_scenes = res.model_scenes;
+                  if(res.model_cases) that.$root.$model_cases = res.model_cases;
+                  if(all){
+                      that.$root.$my_table[route] = res.list;
+                      return
                   }
                   that.tableData = that.tabledata = res.list;
-                  that.totalCount=that.total_count= res.list.length
+                  that.totalCount=that.total_count= res.count
               })
          };
 
@@ -170,6 +173,12 @@
   };
 
 
+  Vue.prototype.my_all_request = function () {
+      let all_list = ['case', 'group', 'header', 'mysql', 'report', 'scene', 'variable', 'email'];
+                      for(let i=0;i<all_list.length;i++){
+                         this.my_request(all_list[i] + '_list', this, true);
+                      }
+  };
   export default {
 
   }
