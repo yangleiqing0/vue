@@ -98,8 +98,8 @@
       data() {
         return {
               search: '',
-              href: this.$root.$api.report_list,
-             tableData:this.$my_table,
+              href: this.$root.$api,
+             tableData:this.$my_table.report_list,
              // 默认显示第几页
             currentPage:this.$currentPage,
              // 总条数，根据接口获取数据长度(注意：这里不能为空)
