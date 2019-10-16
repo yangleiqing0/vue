@@ -71,17 +71,26 @@
                   <i class="el-icon-setting"></i>
                   <span slot="title">项目统计</span>
                 </el-menu-item>
-                <el-submenu index="7"  style="padding-left: 0;padding-right: 20px">
-                  <template slot="title">
-                    <i class="am-icon-cubes am-icon-fw"></i>
-                    <span slot="title">测试配置</span>
-                  </template>
-                  <el-menu-item index="header_list">请求头部</el-menu-item>
-                  <el-menu-item index="group_list">用例分组</el-menu-item>
-                  <el-menu-item index="variable_list">全局变量</el-menu-item>
-                  <el-menu-item index="email_list">邮件配置</el-menu-item>
-                  <el-menu-item index="mysql_list">数据库配置</el-menu-item>
-                </el-submenu>
+              <el-menu-item index="header_list" style="padding-left: 0">
+                  <i class="am-icon-mortar-board am-icon-fw"></i>
+                  <span slot="title">请求头部</span>
+                </el-menu-item>
+              <el-menu-item index="group_list" style="padding-left: 0">
+                  <i class="am-icon-book am-icon-fw"></i>
+                  <span slot="title">用例分组</span>
+                </el-menu-item>
+              <el-menu-item index="variable_list" style="padding-left: 0">
+                  <i class="am-icon-cubes am-icon-fw"></i>
+                  <span slot="title">全局变量</span>
+                </el-menu-item>
+              <el-menu-item index="email_list" style="padding-left: 0">
+                  <i class="am-icon-envelope am-icon-fw"></i>
+                  <span slot="title">邮件配置</span>
+                </el-menu-item>
+              <el-menu-item index="mysql_list" style="padding-left: 0">
+                  <i class="am-icon-database am-icon-fw"></i>
+                  <span slot="title">数据库配置</span>
+                </el-menu-item>
               <div class="none">
                 <el-menu-item index="group_edit"></el-menu-item>
                 <el-menu-item index="variable_edit"></el-menu-item>
