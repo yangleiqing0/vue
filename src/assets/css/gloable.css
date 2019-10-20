@@ -210,3 +210,7 @@ li,a,i{
    line-height: 1;
   border: 1px solid #DCDFE6;
 }
+.el-table .cell{
+  height: 40px !important;
+  /*overflow: hidden !important;*/
+}

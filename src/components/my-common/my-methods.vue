@@ -172,14 +172,13 @@
                   }
                   else if(all){
                       that.$root.$my_all_table[route] = res.list;
-                      console.log('allll')
                       return
                   }
                   that.tableData = that.tabledata =  res.list;
                   //
                   that.totalCount=that.total_count= res.count
               })
-         };
+      };
 
   Vue.prototype.my_logout = function (err=true, data=null) {
       this.$root.$user_name = '用户名称';
@@ -217,8 +216,8 @@
           for (let i = 0; i < all_list.length; i++) {
               this.my_request(all_list[i] + '_list', this, true);
           }
-          for (let i = 0; i < all_list.length; i++) {
-              this.my_request(all_list[i] + '_list', this, false, true);
+           for (let i = 0; i < all_list.length; i++) {
+          this.my_request(all_list[i] + '_list', this, false, true);
           }
       }
   };

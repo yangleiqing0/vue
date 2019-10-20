@@ -35,7 +35,8 @@
       @selection-change="handleSelectionChange"
       :row-style="{height:'20px'}"
       :cell-style="{padding:'5px'}"
-      :tree-props="tree_props">
+      :tree-props="tree_props"
+      >
       <slot></slot>
         <el-table-column align="left"  :width="operate_width">
           <template slot="header" slot-scope="scope">
@@ -81,6 +82,10 @@
 </template>
 
 <script>
+  let tds = document.getElementsByClassName('cell');
+  for(let i=0;i<tds.length;i++){
+
+  }
   export default {
      name:'my_table',
      props: {

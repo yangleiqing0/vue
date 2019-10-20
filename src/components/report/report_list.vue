@@ -1,10 +1,10 @@
 <template>
   <MyTable table_name="report">
-      <el-table-column
+      <el-table-column show-overflow-tooltip
           type="selection"
           width="55">
       </el-table-column>
-      <el-table-column sortable=""
+      <el-table-column show-overflow-tooltip sortable=""
         prop="name"
         label="测试报告名称">
       </el-table-column>

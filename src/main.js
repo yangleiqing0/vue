@@ -56,9 +56,11 @@ Axios.interceptors.response.use(res => {
   }
   if(res.out){
     that.my_logout(false, res.out)
+    console.log('response out', res)
+  }else {
+    that.my_notify(res);
+    console.log('response', res)
   }
-  that.my_notify(res);
-  console.log('response', res)
   return res;
 }, err => {
   // 对响应错误做处理
