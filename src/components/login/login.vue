@@ -70,8 +70,7 @@
                           }
                       that.$root.$user_name = that.ruleForm.username;
                       that.$root.$user_id = res.data.user_id;
-                      // that.$router.push('/case_list');
-                      that.$router.push('/group_list');
+                      that.$router.push({name:'case_list'});
                       that.my_all_request();
                       that.setlocalStorage(that.ruleForm.username, that.ruleForm.password, that.$root.$user_id);
                   })
@@ -107,7 +106,7 @@
 </script>
 
 <style scoped>
-    #Login{
+    #Login, ._edit{
         position:absolute;
         top:50%;
         left:50%;

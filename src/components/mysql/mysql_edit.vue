@@ -1,5 +1,6 @@
 <template>
   <div class="edit">
+    <div class="_edit edit-inner">
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="120px" :model="MysqlForm" size="small" status-icon :rules="rules" ref="MysqlForm">
       <el-form-item label="配置名称" prop="name">
@@ -29,6 +30,7 @@
         <el-button @click="back">后退</el-button>
       </el-form-item>
     </el-form>
+    </div>
   </div>
 </template>
 <script>

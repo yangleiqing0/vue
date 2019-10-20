@@ -4,6 +4,7 @@ import ElementUI from 'element-ui';
 import AmazeVue from 'amaze-vue';
 import router from "./route";
 import store from './store/index'
+import Axios from "axios";
 
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/css/gloable.css'
@@ -11,10 +12,15 @@ import 'amaze-vue/dist/amaze-vue.css';
 import './components/my-common/my-methods'  //全局公用弹窗方法
 import './components/my-common/my-var'
 
+// 全局组件
+import my_table from "./components/my-common/my_table";
+
 Vue.use(AmazeVue);
 
+Vue.component('MyTable', my_table);
 
-import Axios from "axios";
+
+
 
 // Axios.defaults.baseURL = 'http://127.0.0.1:5000/';
 Axios.defaults.headers['Content-Type'] = 'application/json';

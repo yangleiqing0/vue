@@ -157,8 +157,8 @@ li,a,i{
 }
 
 .edit{
-  margin-left: 25%;
-  width: 50%
+  margin-left: 10%;
+  width: 80%
 }
 .search {
   margin-left: 10px;
@@ -178,6 +178,7 @@ li,a,i{
   line-height: 50px !important;
   background-color: white;
   text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
 }
 .el-pagination {
   margin-top: 20px;
@@ -185,7 +186,10 @@ li,a,i{
 .tabListPage{
   text-align: center;
 }
-
+.edit-inner{
+  padding: 20px;
+  /*background-color: rgb(84, 92, 100);*/
+}
 
 .el-table thead {
     color: #606266;

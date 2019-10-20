@@ -67,8 +67,9 @@ export default new Router({
           }
     },
     {
-      path:'/case_list',
+      path:'/case_list/:page?',
       component:case_list,
+      name:'case_list',
       meta: {
               title: "测试用例",
               show: true
@@ -92,8 +93,9 @@ export default new Router({
           }
     },
     {
-      path:'/report_list',
+      path:'/report_list:page?',
       component:report_list,
+      name:'report_list',
       meta: {
               title: "测试报告",
               show: true
@@ -109,8 +111,9 @@ export default new Router({
           }
     },
     {
-      path:'/scene_list',
+      path:'/scene_list/:page?',
       component:scene_list,
+      name:'scene_list',
       meta: {
               title: "场景用例",
               show: true
@@ -126,8 +129,9 @@ export default new Router({
           }
     },
     {
-      path:'/group_list',
+      path:'/group_list/:page?',
       component: group_list,
+      name:'group_list',
       meta: {
               title: "分组列表",
               show: true
@@ -144,7 +148,8 @@ export default new Router({
     },
 
      {
-      path:'/variable_list',
+      name:'variable_list',
+      path:'/variable_list/:page?',
       component: variable_list,
       meta: {
               title: "变量列表",
@@ -161,8 +166,9 @@ export default new Router({
           }
     },
     {
-      path:'/header_list',
+      path:'/header_list/:page?',
       component: header_list,
+      name:'header_list',
       meta: {
               title: "请求头部列表",
               show: true
@@ -178,8 +184,9 @@ export default new Router({
           }
     },
     {
-      path:'/email_list',
+      path:'/email_list/:page?',
       component: email_list,
+      name:'email_list',
       meta: {
               title: "邮件配置列表",
               show: true
@@ -195,8 +202,9 @@ export default new Router({
           }
     },
     {
-      path:'/mysql_list',
+      path:'/mysql_list/:page?',
       component: mysql_list,
+      name:'mysql_list',
       meta: {
               title: "数据库配置列表",
               show: true

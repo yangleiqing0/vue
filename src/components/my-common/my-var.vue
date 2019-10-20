@@ -17,6 +17,17 @@
       variable_list:[],
       email_list:[]
   };
+  Vue.prototype.$my_all_table = {
+      case_list:[],
+      group_list:[],
+      header_list:[],
+      mysql_list:[],
+      report_list:[],
+      scene_list:[],
+      variable_list:[],
+      email_list:[]
+  };
+
   Vue.prototype.$headers = [];
   Vue.prototype.$groups = [];
   Vue.prototype.$mysqls = [];

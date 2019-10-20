@@ -1,20 +1,24 @@
 <template>
-  <div class="edit">
-    <div style="margin: 20px;"></div>
-    <el-form :label-position="labelPosition" label-width="80px" :model="GroupForm" size="small" status-icon :rules="rules" ref="GroupForm">
-      <el-form-item label="分组名称" prop="name">
-        <el-input v-model="GroupForm.name"></el-input>
-      </el-form-item>
-      <el-form-item label="分组备注" prop="description">
-        <el-input v-model="GroupForm.description"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('GroupForm')">提交</el-button>
-        <el-button @click="resetForm('GroupForm')">重置</el-button>
-        <el-button @click="back">后退</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+        <div class="edit">
+            <div class="_edit edit-inner">
+              <div style="margin: 20px;"></div>
+              <el-form :label-position="labelPosition" label-width="80px" :model="GroupForm" size="small" status-icon :rules="rules" ref="GroupForm">
+                <el-form-item label="分组名称" prop="name">
+                  <el-input v-model="GroupForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="分组备注" prop="description">
+                  <el-input v-model="GroupForm.description"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="submitForm('GroupForm')">提交</el-button>
+                  <el-button @click="resetForm('GroupForm')">重置</el-button>
+                  <el-button @click="back">后退</el-button>
+                </el-form-item>
+              </el-form>
+            </div>
+        </div>
+<!--      </div>-->
+<!--  </div>-->
 </template>
 <script>
   export default {

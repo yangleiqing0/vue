@@ -1,5 +1,6 @@
 <template>
   <div class="edit">
+    <div class="_edit edit-inner">
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="80px" :model="VariableForm" size="small" status-icon :rules="rules" ref="VariableForm">
       <el-form-item label="变量名称" prop="name">
@@ -17,6 +18,7 @@
         <el-button @click="back">后退</el-button>
       </el-form-item>
     </el-form>
+    </div>
   </div>
 </template>
 <script>

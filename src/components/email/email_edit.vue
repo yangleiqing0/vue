@@ -1,5 +1,6 @@
 <template>
   <div class="edit">
+    <div class="_edit edit-inner">
     <div style="margin: 20px;"></div>
     <el-form :label-position="labelPosition" label-width="100px" :model="EmailForm" size="small" status-icon :rules="rules" ref="EmailForm">
       <el-form-item label="邮件名称" prop="name">
@@ -27,6 +28,7 @@
         <el-button @click="back">后退</el-button>
       </el-form-item>
     </el-form>
+    </div>
   </div>
 </template>
 <script>

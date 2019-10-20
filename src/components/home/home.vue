@@ -8,7 +8,8 @@
           @select="handleSelect"
           background-color="#545c64"
           text-color="#fff"
-          active-text-color="#ffd04b">
+          active-text-color="#ffd04b"
+          router>
           <el-menu-item index="1">处理中心</el-menu-item>
           <el-submenu index="2">
             <template slot="title">我的工作台</template>
@@ -41,13 +42,15 @@
       <div class="bck"></div>
       <el-container id="main">
         <el-container>
-            <el-menu default-active="1-4-1" class="el-menu-vertical-demo"
+            <el-menu class="el-menu-vertical-demo"
                    @open="handleOpen" @close="handleClose"
                    :collapse="Left_isCollapse"
                    background-color="#545c64"
                    text-color="#fff"
-                   active-text-color="#ffd04b" id="menu-left" :router=true>
-                <el-menu-item index="case_list" style="padding-left: 0">
+                   :default-active="activeIndex"
+                   active-text-color="#ffd04b" id="menu-left"
+                   @select="handleSelect">
+                <el-menu-item  index="case_list" style="padding-left: 0">
                     <i class="am-icon-book am-icon-fw"></i>
                     <span slot="title">测试用例</span>
                 </el-menu-item>
@@ -59,29 +62,29 @@
                   <i class="am-icon-play am-icon-fw"></i>
                   <span slot="title">测试执行</span>
                 </el-menu-item>
-                <el-menu-item index="report_list"  style="padding-left: 0">
+                <el-menu-item index="report_list" style="padding-left: 0">
                   <i class="am-icon-table am-icon-fw"></i>
                   <span slot="title">测试报告</span>
                 </el-menu-item>
-                <el-menu-item index="job_list"  style="padding-left: 0">
+                <el-menu-item index="job_list" style="padding-left: 0">
                   <i class="am-icon-tasks am-icon-fw"></i>
                   <span slot="title">测试任务</span>
                 </el-menu-item>
-                <el-menu-item index="report_email" style="padding-left: 0">
+                <el-menu-item index="7" style="padding-left: 0">
                   <i class="el-icon-setting"></i>
                   <span slot="title">项目统计</span>
                 </el-menu-item>
-              <el-menu-item index="header_list" style="padding-left: 0">
+              <el-menu-item  index="header_list"  style="padding-left: 0">
                   <i class="am-icon-mortar-board am-icon-fw"></i>
                   <span slot="title">请求头部</span>
                 </el-menu-item>
-              <el-menu-item index="group_list" style="padding-left: 0">
+              <el-menu-item index="group_list"  style="padding-left: 0">
                   <i class="am-icon-book am-icon-fw"></i>
                   <span slot="title">用例分组</span>
                 </el-menu-item>
               <el-menu-item index="variable_list" style="padding-left: 0">
-                  <i class="am-icon-cubes am-icon-fw"></i>
-                  <span slot="title">全局变量</span>
+                    <i class="am-icon-cubes am-icon-fw"></i>
+                    <span slot="title">全局变量</span>
                 </el-menu-item>
               <el-menu-item index="email_list" style="padding-left: 0">
                   <i class="am-icon-envelope am-icon-fw"></i>
@@ -89,7 +92,7 @@
                 </el-menu-item>
               <el-menu-item index="mysql_list" style="padding-left: 0">
                   <i class="am-icon-database am-icon-fw"></i>
-                  <span slot="title">数据库配置</span>
+                  <span slot="title">数据库集</span>
                 </el-menu-item>
               <div class="none">
                 <el-menu-item index="group_edit"></el-menu-item>
@@ -102,7 +105,7 @@
               </div>
           </el-menu>
           <el-main>
-              <router-view></router-view>
+              <router-view  style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"></router-view>
           </el-main>
           <el-menu default-active="1-4-1" class="el-menu-vertical-demo white left"
                @open="handleOpen" @close="handleClose" id="show_msg"
@@ -110,7 +113,6 @@
                background-color="#545c64"
                text-color="#fff" active-text-color="#ffd04b"  style="border-right: 0;border-left:solid 1px #e6e6e6 ;
                word-break: break-all;word-wrap: break-word; padding: 10px" >
-
           </el-menu>
         </el-container>
       </el-container>
@@ -145,7 +147,7 @@
         data() {
         return{
              home_show: '',
-             activeIndex: '1',
+             activeIndex: 'case_list',
              activeIndex2: '1',
              Left_isCollapse: false,
              Right_isCollapse:false,
@@ -154,7 +156,9 @@
         methods: {
             handleSelect(key, keyPath) {
               // eslint-disable-next-line no-console
-              console.log(key, keyPath);
+              this.activeIndex = key;
+              console.log('handleSelect', key, keyPath, this.activeIndex);
+              this.$router.push({name:key})
             },
             handleClose(key, keyPath) {
               // eslint-disable-next-line no-console
@@ -163,6 +167,7 @@
             handleOpen(key, keyPath) {
               // eslint-disable-next-line no-console
               console.log(key, keyPath);
+
             },
             logout(){
               this.my_logout()
@@ -171,7 +176,14 @@
         updated:function () {
         },
         created() {
-
+            if(this.$route.name) this.activeIndex = this.$route.name
+        },
+        watch:{
+          //  监视搜索栏 进行筛选
+            $route(to, from ,next){
+            // console.log('watch',this.$route.name, this.activeIndex);
+                if(this.$route.name !==  this.activeIndex) this.activeIndex = 'case_list'
+            }
         }
 
     }
