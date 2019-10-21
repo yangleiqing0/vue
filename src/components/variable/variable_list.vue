@@ -21,7 +21,10 @@
 
 <script>
   export default {
-      name: 'variable_list'
+      name: 'variable_list',
+      created() {
+          console.log('variable_list created')
+      }
   }
 </script>
 <style scoped>

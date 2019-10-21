@@ -102,6 +102,7 @@
   Vue.prototype.my_search = function (that) {
 
             const search = that.search.toLowerCase();
+            console.log('search_here', search)
             if (search) {
             // filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
             // 注意： filter() 不会对空数组进行检测。
@@ -131,27 +132,34 @@
 
 
   Vue.prototype.my_edit =  function(route, row, that) {
-          that.$router.push({
-              name:route,
-              params: row
-          })
-         };
+      that.$router.push({
+          name: route,
+          params: row
+      })
+  };
+
 
   Vue.prototype.my_del = function (route, row, that) {
-               if(row === 'more') row=that.multipleSelection;
-               if(row.length === 0){
-                   that.my_notify({info:'未选择数据'})
-               }else {
-                   that.my_del_confirm(
-                       () => {
-                           that.$axios.post(that.$root.$api + route, {
-                               'id': row,
-                           })
-                               .then(() => {
-                                   that.request();
-                               })
-                       })
-               }
+                  if (row === 'more') row = that.multipleSelection;
+                  if (row.length === 0) {
+                      that.my_notify({info: '未选择数据'})
+                  } else {
+                      that.my_del_confirm(
+                          () => {
+                              that.$axios.post(that.$root.$api + route, {
+                                  'id': row,
+                              })
+                                  .then(() => {
+                                      that.request();
+                                      if(that.search) {
+                                          this.my_request(this.table_name + '_list', this, false, true);
+                                          let search = this.search;
+                                          this.search='';
+                                          this.search=search
+                                      }
+                                  })
+                          })
+                  }
          };
 
   Vue.prototype.my_request = function (route, that, all_first=false, all=false, page=1, pagesize=10){
@@ -161,22 +169,31 @@
               all:all
           })
               .then(res=> {
-                  if(res.groups) console.log(res.groups);that.groups=that.$root.$groups = res.groups;
-                  if(res.headers) that.headers=that.$root.$headers = res.headers;
-                  if(res.mysqls) that.mysqls=that.$root.$mysqls = res.mysqls;
-                  if(res.model_scenes) that.model_scenes=that.$root.$model_scenes = res.model_scenes;
-                  if(res.model_cases) that.model_cases=that.$root.$model_cases = res.model_cases;
-                  if(all_first) {
-                      that.$root.$my_table[route] = res.list;
-                      return
+                  if(!all_first && !all){
+                      console.log('!all!all_first')
+                      that.totalCount=that.total_count= res.count;
+                      if(res.groups) console.log(res.groups);that.groups=that.$root.$groups = res.groups;
+                      if(res.headers) that.headers=that.$root.$headers = res.headers;
+                      if(res.mysqls) that.mysqls=that.$root.$mysqls = res.mysqls;
+                      if(res.model_scenes) that.model_scenes=that.$root.$model_scenes = res.model_scenes;
+                      if(res.model_cases) that.model_cases=that.$root.$model_cases = res.model_cases;
+                      that.tableData = that.tabledata =  res.list;
+                      //
                   }
-                  else if(all){
-                      that.$root.$my_all_table[route] = res.list;
-                      return
+                  else {
+                          if(all_first) {
+                          console.log('all_first', res.list)
+                          this.$root.$my_table[route] = res.list;
+                           if(!localStorage.getItem('my_table' + route)) {
+                              localStorage.setItem('my_table' + route, JSON.stringify(res.list))
+                            }
+                          }
+                         if (all) {
+                            that.allData = res.list;
+                            that.$store.commit('SetStore', {key:route, value:res.list});
+                            console.log('all', this.$store.state.my_all_table[route], res.list, res, route)
+                      }
                   }
-                  that.tableData = that.tabledata =  res.list;
-                  //
-                  that.totalCount=that.total_count= res.count
               })
       };
 
@@ -216,10 +233,10 @@
           for (let i = 0; i < all_list.length; i++) {
               this.my_request(all_list[i] + '_list', this, true);
           }
-           for (let i = 0; i < all_list.length; i++) {
-          this.my_request(all_list[i] + '_list', this, false, true);
-          }
       }
+      for (let i = 0; i < all_list.length; i++) {
+              this.my_request(all_list[i] + '_list', this, false, true);
+          }
   };
 
 

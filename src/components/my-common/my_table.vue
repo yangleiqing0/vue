@@ -86,6 +86,7 @@
   for(let i=0;i<tds.length;i++){
 
   }
+
   export default {
      name:'my_table',
      props: {
@@ -129,7 +130,7 @@
          request(){
              if(!this.search) {
                  // 没有查询条件 进行实时查询
-                 this.my_request(this.table_name + '_list', this)
+                 this.my_request(this.table_name + '_list', this);
              }else {
                  // 有查询条件的时候根据返回来的所有值进行过滤查询
                   this.tableData = this.searchData.slice((this.currentPage-1)*this.PageSize, this.currentPage*this.PageSize);
@@ -169,9 +170,9 @@
             mysqls:this.$root.$headers,
             href: this.$root.$api,
             searchData:[],
-            allData:this.$my_all_table[this.table_name + '_list'],
+            allData:this.$store.state.my_all_table[this.table_name + '_list'],
             search: '',
-            tableData:this.$my_table[this.table_name + '_list'],
+            tableData: this.$root.$my_table[this.table_name + '_list'],
              // 默认显示第几页
             currentPage:this.$currentPage,
              // 总条数，根据接口获取数据长度(注意：这里不能为空)
@@ -191,9 +192,24 @@
             }
       },
       created(){
-            console.log(this.table_name + '_list');
             this.request();
+
+            if(!this.$store.state.my_all_table[this.table_name+'_list']){
+                if(localStorage.getItem('my_all_table' + this.table_name+'_list')){
+                  this.$store.state.my_all_table[this.table_name+'_list'] = localStorage.getItem('my_all_table' + this.table_name+'_list')
+                }
+            }
+            if(!this.$root.$my_table[this.table_name+'_list']){
+                if(localStorage.getItem('my_table' + this.table_name+'_list')){
+                  this.$root.$my_table[this.table_name+'_list'] = localStorage.getItem('my_table' + this.table_name+'_list')
+                }
+            }
+            // this.my_all_request()
+            // this.my_request(this.table_name+ '_list', this, true);
+            // console.log('my_table created', this.table_name, this.$store.state.my_table.variable_list)
       },
+
+
       // 子组件的 beforeRouteUpdate函数不起作用
       // beforeRouteUpdate(to, from , next){
       //    console.log('beforeRouteUpdate' + this.table_name)
@@ -207,11 +223,12 @@
             this.my_search(this)
         },
         $route(to, from ,next){
-            // console.log('$route' + this.table_name)
+            console.log('$route' + this.table_name)
             this.currentPage = parseInt(this.$route.params.page) || 1;
             this.request();
         }
-      }
+      },
+
   }
 </script>
 <style scoped>{

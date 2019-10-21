@@ -7,6 +7,16 @@ const store = new Vuex.Store({
   state () {
     return {
       user: null,
+      my_all_table: {
+      case_list:[],
+      group_list:[],
+      header_list:[],
+      mysql_list:[],
+      report_list:[],
+      scene_list:[],
+      variable_list:[],
+      email_list:[]
+      },
     }
   },
   getters: {
@@ -25,6 +35,12 @@ const store = new Vuex.Store({
     $_removeStorage (state) {
       state.user = null;
       localStorage.removeItem(key)
+    },
+    SetStore(state, data){
+      state.my_all_table[data.key] = data.value;
+      if(!localStorage.getItem('my_all_table'+data.key)) {
+        localStorage.setItem('my_all_table' + data.key, JSON.stringify(data.value))
+      }
     }
   }
 });

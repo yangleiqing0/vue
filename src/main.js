@@ -90,7 +90,7 @@ let that = new Vue({
        this.$router.push({path:'/login'})
     }
     console.log('uid app:', this.$root.$user_id);
-    this.my_all_request();
+    // this.my_all_request();
   }
 }).$mount('#app');
 
