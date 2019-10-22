@@ -235,6 +235,7 @@
             wait_config:true,
             sql_config:true,
             mysqls:'',
+            page:1,
             CaseForm: {
                 wait:{},
                 name: '',
@@ -309,12 +310,14 @@
           },
 
           getParams(){//接收函数
+              console.log('case_edit', this.$route.params)
               if (this.$route.params.row) {
                   this.CaseForm = this.$route.params.row;
               }
               this.groups = this.$route.params.groups;
               this.headers = this.$route.params.headers;
               this.mysqls = this.$route.params.mysqls;
+              this.page = this.$route.params.page;
           },
           test_(){
               this.test_run('case_run', this.CaseForm, this)
@@ -322,11 +325,16 @@
           submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
+                console.log('push valid', this.page)
                 this.CaseForm.case_method = this.value;
                 this.$axios.post('/api/case_edit', this.CaseForm)
                     .then(()=> {
-                    this.$router.push('/case_list');
-
+                        console.log('push ', this.page, typeof this.page)
+                        // if (this.page !== 1){
+                        //       this.$router.push({name: 'case_list', params:{page: this.page}})
+                        // }else {
+                        this.$router.push('/case_list')
+                        // }
                 })
             }else {
               return false;

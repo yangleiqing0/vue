@@ -17,7 +17,7 @@
       variable_list:[],
       email_list:[]
   };
-  Vue.prototype.$my_first_table ={
+  Vue.prototype.$my_table_first ={
       case_list:[],
       group_list:[],
       header_list:[],
@@ -27,12 +27,8 @@
       variable_list:[],
       email_list:[]
   };
-  Vue.prototype.$headers = [];
-  Vue.prototype.$groups = [];
+  // 每个数据组的首页的与user_id=用户的数据
   Vue.prototype.$my_list = ['group', 'header', 'mysql', 'case', 'report', 'scene', 'variable', 'email'];
-  Vue.prototype.$mysqls = [];
-  Vue.prototype.$model_scenes = [];
-  Vue.prototype.$model_cases = [];
   Vue.prototype.$my_email = [{key:1, value:'图片'},{key:2, value:'附件'}];
   Vue.prototype.$currentPage = 1;
   Vue.prototype.$totalCount = {

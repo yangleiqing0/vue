@@ -54,6 +54,7 @@
         }
       };
         return {
+            page:1,
             VariableForm: {
                 name: '',
                 value:'',
@@ -72,7 +73,8 @@
       },
       methods:{
             getParams(){//接收函数
-                this.VariableForm = this.$route.params;
+                this.VariableForm = this.$route.params.row;
+                this.page = this.$route.params.page
             },
             submitForm(formName) {
             this.$refs[formName].validate((valid) => {
@@ -81,8 +83,7 @@
                         this.VariableForm
               )
                       .then(()=> {
-                      this.$router.push('/variable_list');
-
+                      this.$router.push({name:'variable_list', params:{page:this.page}});
                   })
               }else {
                 return false;

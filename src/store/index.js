@@ -17,6 +17,9 @@ const store = new Vuex.Store({
       variable_list:[],
       email_list:[]
       },
+      // 每个数据组可显示与user_id=用户的数据
+      model_scenes:[],
+      model_cases:[]
     }
   },
   getters: {
@@ -38,9 +41,12 @@ const store = new Vuex.Store({
     },
     SetStore(state, data){
       state.my_all_table[data.key] = data.value;
-      if(!localStorage.getItem('my_all_table'+data.key)) {
-        localStorage.setItem('my_all_table' + data.key, JSON.stringify(data.value))
-      }
+      localStorage.setItem('my_all_table' + data.key, JSON.stringify(data.value))
+    },
+    SetDate(state, data){
+       state[data.key] = data.value;
+       localStorage.setItem(data.key, JSON.stringify(data.value))
+
     }
   }
 });

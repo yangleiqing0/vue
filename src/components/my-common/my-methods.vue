@@ -132,6 +132,7 @@
 
 
   Vue.prototype.my_edit =  function(route, row, that) {
+      console.log('my_edit', route, row, that)
       that.$router.push({
           name: route,
           params: row
@@ -152,19 +153,21 @@
                                   .then(() => {
                                       that.request();
                                       if(that.search) {
-                                          this.my_request(this.table_name + '_list', this, false, true);
-                                          let search = this.search;
+                                          this.my_request(that.table_name + '_list', that, false, true);
+                                          let search = that.search;
                                           this.search='';
                                           this.search=search
                                       }
+                                      this.my_request(that.table_name + '_list',that, true, false, 1);
+                                      this.my_request(that.table_name + '_list',that, false, true)
                                   })
                           })
                   }
          };
 
-  Vue.prototype.my_request = function (route, that, all_first=false, all=false, page=1, pagesize=10){
+  Vue.prototype.my_request = function (route, that, all_first=false, all=false, page, pagesize=10){
           that.$axios.post(that.$root.$api + route, {
-              page: that.currentPage || page,
+              page: page || that.currentPage || 1,
               pagesize:that.PageSize || pagesize,
               all:all
           })
@@ -172,11 +175,26 @@
                   if(!all_first && !all){
                       console.log('!all!all_first')
                       this.$root.$totalCount[route] = that.totalCount=that.total_count= res.count;
-                      if(res.groups) console.log(res.groups);that.groups=that.$root.$groups = res.groups;
-                      if(res.headers) that.headers=that.$root.$headers = res.headers;
-                      if(res.mysqls) that.mysqls=that.$root.$mysqls = res.mysqls;
-                      if(res.model_scenes) that.model_scenes=that.$root.$model_scenes = res.model_scenes;
-                      if(res.model_cases) that.model_cases=that.$root.$model_cases = res.model_cases;
+                      if(res.groups) {
+                          that.groups = res.groups;
+                          that.$store.commit('SetStore', {key:'group_list', value:res.groups});
+                      }
+                      if(res.headers) {
+                          that.headers = res.headers;
+                          that.$store.commit('SetStore', {key:'header_list', value:res.headers});
+                      }
+                      if(res.mysqls) {
+                          that.mysqls = res.mysqls;
+                          that.$store.commit('SetStore', {key:'mysql_list', value:res.mysqls});
+                      }
+                      if(res.model_scenes) {
+                          that.model_scenes = res.model_scenes;
+                          this.$store.commit('SetDate',{key:'model_scenes', value:res.model_scenes})
+                      }
+                      if(res.model_cases) {
+                          that.model_cases = res.model_cases;
+                          this.$store.commit('SetDate',{key:'model_cases', value:res.model_cases})
+                      }
                       that.tableData = that.tabledata =  res.list;
                       //
                   }
@@ -184,9 +202,7 @@
                           if(all_first) {
                           console.log('all_first', res.list)
                           this.$root.$my_table[route] = res.list;
-                           if(!localStorage.getItem('my_table' + route)) {
-                              localStorage.setItem('my_table' + route, JSON.stringify(res.list))
-                            }
+                          localStorage.setItem('my_table' + route, JSON.stringify(res.list))
                           }
                          if (all) {
                             that.allData = res.list;

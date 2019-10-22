@@ -115,17 +115,18 @@
      methods: {
 
          handleEdit(index, row) {
+             console.log('handleEdit',   this.currentPage || 1)
              if(this.table_name === 'scene'){
-                 this.my_edit('scene_edit', {'row':row, 'groups': this.groups, 'model_scenes':this.model_scenes, 'model_cases':this.model_cases}, this)
+                 this.my_edit('scene_edit', {'row':row, 'page': this.currentPage || 1, 'groups': this.groups, 'model_scenes':this.model_scenes, 'model_cases':this.model_cases}, this)
              } else if (this.table_name === 'case'){
-                 this.my_edit('case_edit', {'row':row, 'groups': this.groups, 'headers':this.headers, 'mysqls':this.mysqls}, this)
+                 this.my_edit('case_edit', {'row':row, 'page': this.currentPage || 1, 'groups': this.groups, 'headers':this.headers, 'mysqls':this.mysqls}, this)
              }
              else {
-                 this.my_edit(this.table_name + '_edit', row, this)
+                 this.my_edit(this.table_name + '_edit', {'row':row, 'page': this.currentPage || 1}, this)
              }
          },
          handleDelete(index, row) {
-             this.my_del(this.table_name+'_del', row, this)
+              this.my_del(this.table_name+'_del', row, this)
          },
          request(){
              if(!this.search) {
@@ -152,7 +153,7 @@
          },
          handleCurrentChange(val) {
              // 改变默认的页数
-             console.log(this.table_name + '_list: handleCurrentChange', this.PageSize, this.currentPage);
+             console.log(this.table_name + '_list: handleCurrentChange', this.PageSize, this.currentPage, typeof this.currentPage);
              this.currentPage=val;
              this.$router.push({name: this.table_name+'_list', params:{page: this.currentPage}})
          },
@@ -163,11 +164,11 @@
        },
       data() {
         return {
-            model_scenes:this.$root.$model_scenes,
-            model_cases:this.$root.$model_cases,
-            groups: this.$root.$groups,
-            headers:this.$root.$headers,
-            mysqls:this.$root.$headers,
+            model_scenes:this.$store.state.model_scenes,
+            model_cases:this.$store.state.model_cases,
+            groups: this.$store.state.my_all_table['group_list'],
+            headers:this.$store.state.my_all_table['header_list'],
+            mysqls:this.$store.state.my_all_table['mysql_list'],
             href: this.$root.$api,
             searchData:[],
             allData:this.$store.state.my_all_table[this.table_name + '_list'],
@@ -210,11 +211,24 @@
                   this.$root.$my_table[this.table_name+'_list'] = JSON.parse(localStorage.getItem('my_table' + this.table_name+'_list'))
                 }
             }
-            if(this.currentPage || page === 1 && !this.search){
-                console.log('首页')
-                this.tableData = this.$root.$my_table[this.table_name+'_list']
+            // if(this.currentPage || page === 1 && !this.search){
+            //     console.log('首页')
+            //     this.tableData = this.$root.$my_table_first[this.table_name+'_list']
+            // }
+
+            if(this.$store.state['model_cases'].length === 0){
+                if(localStorage.getItem('model_cases')){
+                   this.$store.state['model_cases'] = JSON.parse(localStorage.getItem('model_cases'))
+                }
+            }
+            if(this.$store.state['model_scenes'].length === 0){
+                if(localStorage.getItem('model_scenes')){
+                   this.$store.state['model_scenes'] = JSON.parse(localStorage.getItem('model_scenes'))
+                }
             }
             this.request();
+            this.my_request(this.table_name + '_list',this, true, false, 1);
+            this.my_request(this.table_name + '_list',this, false, true);
             console.log('totalCount  a', this.totalCount, this.tableData)
             // this.my_all_request()
             // this.my_request(this.table_name+ '_list', this, true);
