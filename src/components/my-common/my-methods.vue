@@ -171,7 +171,7 @@
               .then(res=> {
                   if(!all_first && !all){
                       console.log('!all!all_first')
-                      that.totalCount=that.total_count= res.count;
+                      this.$root.$totalCount[route] = that.totalCount=that.total_count= res.count;
                       if(res.groups) console.log(res.groups);that.groups=that.$root.$groups = res.groups;
                       if(res.headers) that.headers=that.$root.$headers = res.headers;
                       if(res.mysqls) that.mysqls=that.$root.$mysqls = res.mysqls;
@@ -228,7 +228,7 @@
 
 
   Vue.prototype.my_all_request = function () {
-      let all_list = ['group', 'header', 'mysql', 'case', 'report', 'scene', 'variable', 'email'];
+      let all_list = this.$my_list;
       if (this.$root.$user_id) {
           for (let i = 0; i < all_list.length; i++) {
               this.my_request(all_list[i] + '_list', this, true);

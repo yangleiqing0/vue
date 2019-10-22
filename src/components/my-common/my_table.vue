@@ -165,7 +165,7 @@
         return {
             model_scenes:this.$root.$model_scenes,
             model_cases:this.$root.$model_cases,
-            groups:this.$root.$groups,
+            groups: this.$root.$groups,
             headers:this.$root.$headers,
             mysqls:this.$root.$headers,
             href: this.$root.$api,
@@ -174,9 +174,9 @@
             search: '',
             tableData: this.$root.$my_table[this.table_name + '_list'],
              // 默认显示第几页
-            currentPage:this.$currentPage,
+            currentPage: this.$currentPage,
              // 总条数，根据接口获取数据长度(注意：这里不能为空)
-            totalCount:this.$totalCount,
+            totalCount:this.$totalCount[this.table_name + '_list'],
              // 个数选择器（可修改）
             pageSizes:this.$pageSizes,
              // 默认每页显示的条数（可修改）
@@ -192,31 +192,42 @@
             }
       },
       created(){
-            this.request();
-
-            if(!this.$store.state.my_all_table[this.table_name+'_list']){
+            console.log('totalCount  b', this.totalCount, this.tableData);
+            console.log(this.$store.state.my_all_table[this.table_name+'_list']);
+            if(this.$store.state.my_all_table[this.table_name+'_list'].length === 0){
                 if(localStorage.getItem('my_all_table' + this.table_name+'_list')){
-                  this.$store.state.my_all_table[this.table_name+'_list'] = localStorage.getItem('my_all_table' + this.table_name+'_list')
+                  let all_list = this.$my_list;
+                  for (let i = 0; i < all_list.length; i++) {
+                      this.$store.state.my_all_table[all_list[i]+'_list'] = JSON.parse(localStorage.getItem('my_all_table' + all_list[i]+'_list'))
+                  }
+                  this.allData = this.$store.state.my_all_table[this.table_name+'_list'];
+                  console.log('全部加载', this.allData)
                 }
             }
-            if(!this.$root.$my_table[this.table_name+'_list']){
+            if(this.$root.$my_table[this.table_name+'_list'].length === 0){
                 if(localStorage.getItem('my_table' + this.table_name+'_list')){
-                  this.$root.$my_table[this.table_name+'_list'] = localStorage.getItem('my_table' + this.table_name+'_list')
+                  console.log('首页加载');
+                  this.$root.$my_table[this.table_name+'_list'] = JSON.parse(localStorage.getItem('my_table' + this.table_name+'_list'))
                 }
             }
+            if(this.currentPage || page === 1 && !this.search){
+                console.log('首页')
+                this.tableData = this.$root.$my_table[this.table_name+'_list']
+            }
+            this.request();
+            console.log('totalCount  a', this.totalCount, this.tableData)
             // this.my_all_request()
             // this.my_request(this.table_name+ '_list', this, true);
             // console.log('my_table created', this.table_name, this.$store.state.my_table.variable_list)
       },
 
+      computed :{
+          tableDataCount:function () {
+              return this.tableData.length
+          }
 
-      // 子组件的 beforeRouteUpdate函数不起作用
-      // beforeRouteUpdate(to, from , next){
-      //    console.log('beforeRouteUpdate' + this.table_name)
-      //    next();
-      //    this.currentPage = parseInt(this.$route.params.page) || 1;
-      //    this.request()
-      // },
+      },
+
       watch:{
           //  监视搜索栏 进行筛选
         search(){
