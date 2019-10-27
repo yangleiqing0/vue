@@ -7,6 +7,8 @@ const store = new Vuex.Store({
   state () {
     return {
       user: null,
+      api:'/api',
+      email_methods:[{key:1, value:'图片'},{key:2, value:'附件'}],
       my_all_table: {
       case_list:[],
       group_list:[],

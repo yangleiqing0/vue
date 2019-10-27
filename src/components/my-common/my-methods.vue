@@ -132,7 +132,7 @@
 
 
   Vue.prototype.my_edit =  function(route, row, that) {
-      console.log('my_edit', route, row, that)
+      console.log('my_edit', route, row)
       that.$router.push({
           name: route,
           params: row
@@ -227,6 +227,7 @@
   };
 
   Vue.prototype.my_run = function () {
+      console.log('my_run', this.$root.$run_result )
       document.querySelector('#show_msg').innerHTML = this.$root.$run_result
   };
 
@@ -255,6 +256,22 @@
           }
   };
 
+  Vue.prototype.my_get_data = function (id, route, that) {
+      that.$axios.post(that.$root.$api + route, {id:id})
+          .then(res => {
+              that.Form = res.list
+          })
+  };
+  Vue.prototype.my_get_localStore = function (key) {
+       if(!localStorage.getItem(key)) {
+            localStorage.setItem(key, JSON.stringify(this.$store.state[key]))
+        }
+       if(this.$store.state[key].length === 0){
+              if(localStorage.getItem(key)){
+                 this.$store.state[key] = JSON.parse(localStorage.getItem(key))
+              }
+        }
+  }
 
 
   export default {

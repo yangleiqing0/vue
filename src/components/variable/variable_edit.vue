@@ -2,19 +2,19 @@
   <div class="edit">
     <div class="_edit edit-inner">
     <div style="margin: 20px;"></div>
-    <el-form :label-position="labelPosition" label-width="80px" :model="VariableForm" size="small" status-icon :rules="rules" ref="VariableForm">
+    <el-form :label-position="labelPosition" label-width="80px" :model="Form" size="small" status-icon :rules="rules" ref="Form">
       <el-form-item label="变量名称" prop="name">
-        <el-input v-model="VariableForm.name"></el-input>
+        <el-input v-model="Form.name"></el-input>
       </el-form-item>
       <el-form-item label="变量的值" prop="value">
-        <el-input v-model="VariableForm.value"></el-input>
+        <el-input v-model="Form.value"></el-input>
       </el-form-item>
       <el-form-item label="备注" prop="description">
-        <el-input v-model="VariableForm.description"></el-input>
+        <el-input v-model="Form.description"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('VariableForm')">提交</el-button>
-        <el-button @click="resetForm('VariableForm')">重置</el-button>
+        <el-button type="primary" @click="submitForm('Form')">提交</el-button>
+        <el-button @click="resetForm('Form')">重置</el-button>
         <el-button @click="back">后退</el-button>
       </el-form-item>
     </el-form>
@@ -31,10 +31,10 @@
           return callback(new Error('不能为空'));
         }else {
             let update=false;
-            if (this.VariableForm.id) update=true;
+            if (this.Form.id) update=true;
             this.$axios.post('/api/variable_validate', {
                 name: value,
-                variable_id: this.VariableForm.id,
+                variable_id: this.Form.id,
                 update:update
                 })
                 .then(res=>{
@@ -55,7 +55,7 @@
       };
         return {
             page:1,
-            VariableForm: {
+            Form: {
                 name: '',
                 value:'',
                 description: ''
@@ -73,14 +73,18 @@
       },
       methods:{
             getParams(){//接收函数
-                this.VariableForm = this.$route.params.row;
-                this.page = this.$route.params.page
+                this.Form = this.$route.params.row;
+                this.page = this.$route.params.page;
+                if (this.$route.params.id && this.$route.params.row === undefined){
+                  this.my_get_data(this.$route.params.id, 'variable_list', this)
+                  console.log('variable_edit_refresh', this.Form);
+              }
             },
             submitForm(formName) {
             this.$refs[formName].validate((valid) => {
               if (valid) {
                   this.$axios.post('/api/variable_edit',
-                        this.VariableForm
+                        this.Form
               )
                       .then(()=> {
                       this.$router.push({name:'variable_list', params:{page:this.page}});

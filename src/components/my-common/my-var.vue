@@ -4,9 +4,10 @@
 
 <script>
   import Vue from 'vue'
+  import store from "../../store";
   Vue.prototype.$user_name = '用户名称';
   Vue.prototype.$user_id = 0;
-  Vue.prototype.$api = '/api';
+  Vue.prototype.$api = store.state.api;
   Vue.prototype.$my_table ={
       case_list:[],
       group_list:[],
@@ -29,7 +30,7 @@
   };
   // 每个数据组的首页的与user_id=用户的数据
   Vue.prototype.$my_list = ['group', 'header', 'mysql', 'case', 'report', 'scene', 'variable', 'email'];
-  Vue.prototype.$my_email = [{key:1, value:'图片'},{key:2, value:'附件'}];
+  Vue.prototype.$my_email = store.state.email_method;
   Vue.prototype.$currentPage = 1;
   Vue.prototype.$totalCount = {
       case_list:1,

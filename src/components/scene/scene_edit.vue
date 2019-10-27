@@ -2,12 +2,12 @@
   <div class="edit">
     <div class="_edit edit-inner">
     <div style="margin: 20px;"></div>
-    <el-form :label-position="labelPosition" label-width="80px" :model="SceneForm" size="small" status-icon :rules="rules" ref="SceneForm">
+    <el-form :label-position="labelPosition" label-width="80px" :model="Form" size="small" status-icon :rules="rules" ref="Form">
       <el-form-item label="场景名称" prop="name">
-        <el-input v-model="SceneForm.name"></el-input>
+        <el-input v-model="Form.name"></el-input>
       </el-form-item>
        <el-form-item label="场景分组" prop="group_id">
-          <el-select v-model="SceneForm.group_id" placeholder="请选择" class="el-col-24" size="big" value="">
+          <el-select v-model="Form.group_id" placeholder="请选择" class="el-col-24" size="big" value="">
             <el-option
               v-for="item in groups"
               :key="item.id"
@@ -17,11 +17,11 @@
           </el-select>
         </el-form-item>
       <el-form-item label="场景备注" prop="description">
-        <el-input v-model="SceneForm.description"></el-input>
+        <el-input v-model="Form.description"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('SceneForm')">提交</el-button>
-        <el-button @click="resetForm('SceneForm')">重置</el-button>
+        <el-button type="primary" @click="submitForm('Form')">提交</el-button>
+        <el-button @click="resetForm('Form')">重置</el-button>
         <el-button @click="back">后退</el-button>
       </el-form-item>
     </el-form>
@@ -38,7 +38,7 @@
         }else {
             this.$axios.post('/api/scene_validate', {
                 name: value,
-                scene_id: this.SceneForm.id})
+                scene_id: this.Form.id})
                 .then(res=>{
                     if(res) {
                         callback();
@@ -49,12 +49,12 @@
         }
       };
         return {
-            groups:'',
+            groups: this.$store.state.my_all_table['group_list'],
             model_scenes:'',
             model_cases:'',
-            SceneForm: {
+            Form: {
               name: '',
-                group_id:1,
+              group_id: 1,
               description: ''
             },
             rules: {
@@ -68,7 +68,13 @@
       methods:{
           getParams(){//接收函数
               if (this.$route.params.row) {
-                  this.SceneForm = this.$route.params.row;
+                  console.log('scene_edit', this.$route.params.row);
+                  this.Form = this.$route.params.row;
+              }
+              if (this.$route.params.id && this.$route.params.row === undefined){
+                  this.my_get_data(this.$route.params.id, 'scene_list', this)
+                  console.log('scene_edit_refresh', this.Form, this.groups, this.$store.state.my_all_table['group_list']);
+                  return
               }
               this.groups = this.$route.params.groups;
               this.model_scenes = this.$route.params.model_scenes;
@@ -77,7 +83,7 @@
           submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
-                this.$axios.post('/api/scene_edit', this.SceneForm)
+                this.$axios.post('/api/scene_edit', this.Form)
                     .then(()=> {
                     this.$router.push('/scene_list');
 

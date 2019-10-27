@@ -17,6 +17,11 @@
         prop="name"
         label="场景名称">
       </el-table-column>
+      <el-table-column show-overflow-tooltip
+        sortable=""
+        prop="description"
+        label="场景备注">
+      </el-table-column>
   </MyTable>
 </template>
 
@@ -28,7 +33,17 @@
          return {
              tree: {children: 'children', hasChildren: 'hasChildren'}
          }
-      }
+      },
+      methods: {
+         test_(index, row){
+             if(row.children === '' || row.children){
+                if (row.children === '') {this.my_notify({info:'请为场景添加测试用例'})}
+                else {this.test_run('scene_run', row, this)}
+             }else {
+                 this.test_run('case_run', row, this)
+             }
+         }
+    }
   }
 </script>
 <style scoped>

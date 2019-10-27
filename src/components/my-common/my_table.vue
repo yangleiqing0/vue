@@ -51,7 +51,7 @@
               type="success" v-if="table_name ==='report'"
               @click="$parent.sendEmail(scope.row)">邮件发送</el-button>
              <el-button
-              size="mini" v-if="table_name ==='case'"
+              size="mini" v-if="table_name ==='case' || table_name ==='scene'"
               @click="$parent.test_(scope.$index, scope.row)" class="no-margin" type="primary">运行</el-button>
 
             <el-button
@@ -115,18 +115,23 @@
      methods: {
 
          handleEdit(index, row) {
-             console.log('handleEdit',   this.currentPage || 1)
              if(this.table_name === 'scene'){
-                 this.my_edit('scene_edit', {'row':row, 'page': this.currentPage || 1, 'groups': this.groups, 'model_scenes':this.model_scenes, 'model_cases':this.model_cases}, this)
+                 if(row.children === '' || row.children || row === ''){ this.my_edit('scene_edit', {'row':row, 'page': this.currentPage || 1, 'groups': this.groups, 'model_scenes':this.model_scenes, 'model_cases':this.model_cases, id:row.id}, this)}
+                 else{this.my_edit('case_edit', {'row':row, 'page': this.currentPage || 1, 'groups': this.groups, 'headers':this.headers, 'mysqls':this.mysqls, id:row.id}, this)}
+
              } else if (this.table_name === 'case'){
-                 this.my_edit('case_edit', {'row':row, 'page': this.currentPage || 1, 'groups': this.groups, 'headers':this.headers, 'mysqls':this.mysqls}, this)
+                 this.my_edit('case_edit', {'row':row, 'page': this.currentPage || 1, 'groups': this.groups, 'headers':this.headers, 'mysqls':this.mysqls, id:row.id}, this)
              }
              else {
-                 this.my_edit(this.table_name + '_edit', {'row':row, 'page': this.currentPage || 1}, this)
+                 this.my_edit(this.table_name + '_edit', {'row':row, 'page': this.currentPage || 1, id:row.id}, this)
              }
          },
          handleDelete(index, row) {
-              this.my_del(this.table_name+'_del', row, this)
+             if (this.table_name !== 'scene'){this.my_del(this.table_name+'_del', row, this)}
+             else{
+                 if(row.children === '' || row.children){this.my_del(this.table_name+'_del', row, this)}
+                 else{this.my_del('case_del', row, this)}
+             }
          },
          request(){
              if(!this.search) {
@@ -209,21 +214,6 @@
                 if(localStorage.getItem('my_table' + this.table_name+'_list')){
                   console.log('首页加载');
                   this.$root.$my_table[this.table_name+'_list'] = JSON.parse(localStorage.getItem('my_table' + this.table_name+'_list'))
-                }
-            }
-            // if(this.currentPage || page === 1 && !this.search){
-            //     console.log('首页')
-            //     this.tableData = this.$root.$my_table_first[this.table_name+'_list']
-            // }
-
-            if(this.$store.state['model_cases'].length === 0){
-                if(localStorage.getItem('model_cases')){
-                   this.$store.state['model_cases'] = JSON.parse(localStorage.getItem('model_cases'))
-                }
-            }
-            if(this.$store.state['model_scenes'].length === 0){
-                if(localStorage.getItem('model_scenes')){
-                   this.$store.state['model_scenes'] = JSON.parse(localStorage.getItem('model_scenes'))
                 }
             }
             this.request();

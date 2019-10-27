@@ -76,7 +76,7 @@ export default new Router({
           }
     },
     {
-      path:'/case_edit',
+      path:'/case_edit/:id?',
       name:'case_edit',
       component:case_edit,
       meta: {
@@ -120,7 +120,7 @@ export default new Router({
           }
     },
     {
-      path:'/scene_edit',
+      path:'/scene_edit/:id?',
       component:scene_edit,
       name:'scene_edit',
       meta: {
@@ -138,7 +138,7 @@ export default new Router({
           }
     },
     {
-      path:'/group_edit',
+      path:'/group_edit/:id?',
       name:'group_edit',
       component: group_edit,
       meta: {
@@ -157,7 +157,7 @@ export default new Router({
           }
     },
     {
-      path:'/variable_edit',
+      path:'/variable_edit/:id?',
       name:'variable_edit',
       component: variable_edit,
       meta: {
@@ -175,7 +175,7 @@ export default new Router({
           }
     },
     {
-      path:'/header_edit',
+      path:'/header_edit/:id?',
       name:'header_edit',
       component: header_edit,
       meta: {
@@ -193,7 +193,7 @@ export default new Router({
           }
     },
     {
-      path:'/email_edit',
+      path:'/email_edit/:id?',
       name:'email_edit',
       component: email_edit,
       meta: {
@@ -211,7 +211,7 @@ export default new Router({
           }
     },
     {
-      path:'/mysql_edit',
+      path:'/mysql_edit/:id?',
       name:'mysql_edit',
       component: mysql_edit,
       meta: {

@@ -2,16 +2,16 @@
         <div class="edit">
             <div class="_edit edit-inner">
               <div style="margin: 20px;"></div>
-              <el-form :label-position="labelPosition" label-width="80px" :model="GroupForm" size="small" status-icon :rules="rules" ref="GroupForm">
+              <el-form :label-position="labelPosition" label-width="80px" :model="Form" size="small" status-icon :rules="rules" ref="Form">
                 <el-form-item label="分组名称" prop="name">
-                  <el-input v-model="GroupForm.name"></el-input>
+                  <el-input v-model="Form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="分组备注" prop="description">
-                  <el-input v-model="GroupForm.description"></el-input>
+                  <el-input v-model="Form.description"></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm('GroupForm')">提交</el-button>
-                  <el-button @click="resetForm('GroupForm')">重置</el-button>
+                  <el-button type="primary" @click="submitForm('Form')">提交</el-button>
+                  <el-button @click="resetForm('Form')">重置</el-button>
                   <el-button @click="back">后退</el-button>
                 </el-form-item>
               </el-form>
@@ -30,7 +30,7 @@
         }else {
             this.$axios.post('/api/group_validate', {
                 name: value,
-                group_id: this.GroupForm.id})
+                group_id: this.Form.id})
                 .then(res=>{
                     if(res) {
                         callback();
@@ -41,7 +41,7 @@
         }
       };
         return {
-            GroupForm: {
+            Form: {
               name: '',
               description: ''
             },
@@ -55,12 +55,18 @@
       },
       methods:{
           getParams(){//接收函数
-              this.GroupForm = this.$route.params;
+              if (this.$route.params.row) {
+                  this.Form = this.$route.params.row;
+              }
+              if (this.$route.params.id && this.$route.params.row === undefined){
+                  this.my_get_data(this.$route.params.id, 'group_list', this)
+                  console.log('group_edit_refresh', this.Form);
+              }
           },
           submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
-                this.$axios.post('/api/group_edit', this.GroupForm)
+                this.$axios.post('/api/group_edit', this.Form)
                     .then(()=> {
                     this.$router.push('/group_list');
 
