@@ -51,9 +51,11 @@
               type="success" v-if="table_name ==='report'"
               @click="$parent.sendEmail(scope.row)">邮件发送</el-button>
              <el-button
-              size="mini" v-if="table_name ==='case' || table_name ==='scene'"
+              size="mini" v-if="table_name ==='case'"
               @click="$parent.test_(scope.$index, scope.row)" class="no-margin" type="primary">运行</el-button>
-
+            <el-button
+              size="mini" v-if="table_name ==='scene'"
+              @click="$parent.test_(scope.$index, scope.row)" type="primary">运行</el-button>
             <el-button
               size="mini"
               type="danger"
