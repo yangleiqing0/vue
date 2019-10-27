@@ -263,7 +263,8 @@
                 new_wait_sql:'',
                 new_wait:'',
                 new_wait_time:'',
-                new_wait_mysql:''
+                new_wait_mysql:'',
+                testcase_scene_id: null
             },
             rules: {
                 name: [
@@ -338,7 +339,8 @@
                         // if (this.page !== 1){
                         //       this.$router.push({name: 'case_list', params:{page: this.page}})
                         // }else {
-                        this.$router.push('/case_list')
+                        if(this.Form.testcase_scene_id){this.$router.push('/scene_list')}
+                        else {this.$router.push('/case_list')}
                         // }
                 })
             }else {
