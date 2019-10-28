@@ -30,7 +30,7 @@
   };
   // 每个数据组的首页的与user_id=用户的数据
   Vue.prototype.$my_list = ['group', 'header', 'mysql', 'case', 'report', 'scene', 'variable', 'email'];
-  Vue.prototype.$my_email = store.state.email_method;
+  Vue.prototype.$my_email = store.state.email_methods;
   Vue.prototype.$currentPage = 1;
   Vue.prototype.$totalCount = {
       case_list:1,
@@ -40,7 +40,7 @@
       report_list:1,
       scene_list:1,
       variable_list:1,
-      email_list:1
+      email_list:1,
   };
   Vue.prototype.$pageSizes = [1,2,5,10];
   Vue.prototype.$PageSize = 10;   //全局每页显示数量

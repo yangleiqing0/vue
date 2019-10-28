@@ -206,7 +206,12 @@
                           }
                          if (all) {
                             that.allData = res.list;
-                            that.$store.commit('SetStore', {key:route, value:res.list});
+                            if (route === 'case_url'){
+                                that.tableData = res.list;
+                                that.$store.commit('SetDate', {key:route, value:res.list});
+                                that.totalCount = that.total_count = that.tableData.length
+                            }
+                            else{that.$store.commit('SetStore', {key:route, value:res.list});}
                             console.log('all', this.$store.state.my_all_table[route], res.list, res, route)
                       }
                   }
@@ -269,6 +274,7 @@
        if(this.$store.state[key].length === 0){
               if(localStorage.getItem(key)){
                  this.$store.state[key] = JSON.parse(localStorage.getItem(key))
+                  console.log('g', this.$store.state[key], key)
               }
         }
   }

@@ -312,13 +312,13 @@
 
           getParams(){//接收函数
               console.log('case_edit', this.$route.params)
-              if (this.$route.params.row) {
-                  this.Form = this.$route.params.row;
-              }
-              if (this.$route.params.id && this.$route.params.row === undefined){
+              if (this.$route.params.id){
                   this.my_get_data(this.$route.params.id, 'case_list', this)
                   console.log('case_edit_refresh', this.Form);
                   return
+              }
+              if (this.$route.params.row) {
+                  this.Form = this.$route.params.row;
               }
               this.groups = this.$route.params.groups;
               this.headers = this.$route.params.headers;

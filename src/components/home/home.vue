@@ -70,7 +70,7 @@
                   <i class="am-icon-tasks am-icon-fw"></i>
                   <span slot="title">测试任务</span>
                 </el-menu-item>
-                <el-menu-item index="7" style="padding-left: 0">
+                <el-menu-item index="case_url" style="padding-left: 0">
                   <i class="el-icon-setting"></i>
                   <span slot="title">项目统计</span>
                 </el-menu-item>

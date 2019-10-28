@@ -19,6 +19,7 @@ const store = new Vuex.Store({
       variable_list:[],
       email_list:[]
       },
+      case_url:[],
       // 每个数据组可显示与user_id=用户的数据
       model_scenes:[],
       model_cases:[]
