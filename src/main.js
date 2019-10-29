@@ -14,10 +14,12 @@ import './components/my-common/my-var'
 
 // 全局组件
 import my_table from "./components/my-common/my_table";
+import mail_table from "./components/my-common/my_mailtable";
 
 Vue.use(AmazeVue);
 
 Vue.component('MyTable', my_table);
+Vue.component('MyMailTable', mail_table);
 
 
 

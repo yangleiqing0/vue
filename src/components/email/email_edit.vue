@@ -13,7 +13,7 @@
         <el-input v-model="Form.to_user_list"></el-input>
       </el-form-item>
       <el-form-item label="邮件方式" prop="email_method">
-        <el-select v-model="value" placeholder="请选择" class="el-col-24" value="">
+        <el-select v-model="value" filterable placeholder="请选择" class="el-col-24" value="">
           <el-option
             v-for="item in email_methods"
             :key="item.key"

@@ -1,11 +1,11 @@
-<template>
+<template >
   <div class="app">
-        <div class="el-col-24 out-operate">
+    <div class="el-col-24 out-operate">
           <div  :class="up_class">
             <el-input
-                    v-model="search"
-                    size="mini"
-                    placeholder="输入关键字搜索" class="no-padding search "/>
+              v-model="search"
+              size="mini"
+              placeholder="输入关键字搜索" class="no-padding search "/>
                   <div class="no-padding operate">
                     <el-button
                     size="mini" v-if="table_name!=='report'"
@@ -29,6 +29,7 @@
       </div>
     <el-table
       border
+      empty-text
       row-key="id"
       style="width: 100%"
       :data="tableData"
@@ -46,6 +47,11 @@
             <el-button
               size="mini"  v-if="table_name!=='report'"
               @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+
+            <el-button
+              size="mini"
+              type="info" v-if="table_name ==='report'"
+              @click="look_report(scope.$index, scope.row)">查看</el-button>
             <el-button
               size="mini"
               type="success" v-if="table_name ==='report'"
@@ -115,6 +121,9 @@
          },
      },
      methods: {
+         look_report(index, row){
+             this.$router.push({name:'report', params:{id:row.id}})
+         },
 
          handleEdit(index, row) {
              if(this.table_name === 'scene'){
@@ -171,6 +180,7 @@
        },
       data() {
         return {
+            loading: true,
             model_scenes:this.$store.state.model_scenes,
             model_cases:this.$store.state.model_cases,
             groups: this.$store.state.my_all_table['group_list'],

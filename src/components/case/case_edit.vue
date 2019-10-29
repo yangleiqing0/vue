@@ -5,10 +5,10 @@
       <el-form :label-position="labelPosition" label-width="150px" :model="Form" size="small" status-icon :rules="rules" ref="Form">
         <div class="el-col-8" style="margin-left: -70px">
         <el-form-item label="用例名称" prop="name">
-        <el-input v-model="Form.name" type="textarea" :rows="2"></el-input>
+        <el-input v-model="Form.name" type="textarea" autosize=""></el-input>
         </el-form-item>
         <el-form-item label="用例分组" prop="group_id">
-          <el-select v-model="Form.group_id" placeholder="请选择" class="el-col-24" size="big" value="">
+          <el-select v-model="Form.group_id" filterable placeholder="请选择" class="el-col-24" size="big" value="">
             <el-option
               v-for="item in groups"
               :key="item.id"
@@ -18,7 +18,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="请求头部" prop="header_id" >
-          <el-select v-model="Form.header_id" placeholder="请选择" class="el-col-24" size="big" value="">
+          <el-select v-model="Form.header_id" filterable placeholder="请选择" class="el-col-24" size="big" value="">
             <el-option
               v-for="item in headers"
               :key="item.id"
@@ -28,22 +28,22 @@
           </el-select>
         </el-form-item>
         <el-form-item label="请求方式" prop="method">
-          <el-input v-model="Form.method" type="textarea" :rows="2"></el-input>
+          <el-input v-model="Form.method" type="textarea" autosize=""></el-input>
         </el-form-item>
          <el-form-item label="请求接口" prop="url">
-          <el-input v-model="Form.url" type="textarea" :rows="2"></el-input>
+          <el-input v-model="Form.url" type="textarea" autosize=""></el-input>
         </el-form-item>
          <el-form-item label="注册变量" prop="regist_variable">
-          <el-input v-model="Form.regist_variable" type="textarea" :rows="2"></el-input>
+          <el-input v-model="Form.regist_variable" type="textarea" autosize=""></el-input>
         </el-form-item>
         <el-form-item label="注册规则" prop="regular" >
-          <el-input v-model="Form.regular" type="textarea" :rows="2"></el-input>
+          <el-input v-model="Form.regular" type="textarea" autosize=""></el-input>
         </el-form-item>
         <el-form-item label="请求报文" prop="data">
-          <el-input v-model="Form.data"  type="textarea" :rows="2"></el-input>
+          <el-input v-model="Form.data"  type="textarea" autosize=""></el-input>
         </el-form-item>
         <el-form-item label="预期结果" prop="hope_result">
-          <el-input v-model="Form.hope_result"  type="textarea" :rows="2"></el-input>
+          <el-input v-model="Form.hope_result"  type="textarea" autosize=""></el-input>
         </el-form-item>
         <el-form-item label="设置模板" prop="is_model">
           <el-select v-model="Form.is_model" placeholder="请选择" class="el-col-24" size="big" value="">
@@ -59,10 +59,10 @@
         <div class="el-col-8" >
           <div v-show="wait_config">
             <el-form-item label="前置等待查询语句" prop="wait.old_wait_sql" >
-              <el-input v-model="Form.wait.old_wait_sql"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.wait.old_wait_sql"  type="textarea" autosize=""></el-input>
             </el-form-item>
             <el-form-item label="前置等待数据库查询" prop="wait.old_wait_mysql" >
-              <el-select v-model="Form.wait.old_wait_mysql" placeholder="请选择" size="big" value="" class="el-col-24" >
+              <el-select v-model="Form.wait.old_wait_mysql" filterable placeholder="请选择" size="big" value="" class="el-col-24" >
                 <el-option
                   v-for="item in mysqls"
                   :key="item.id"
@@ -77,21 +77,21 @@
             </el-form-item>
 
             <el-form-item label="前置等待预期结果" prop="wait.old_wait">
-              <el-input v-model="Form.wait.old_wait"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.wait.old_wait"  type="textarea" autosize=""></el-input>
             </el-form-item>
             <el-form-item label="前置等待超时设置" prop="wait.old_wait_time">
-              <el-input v-model="Form.wait.old_wait_time"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.wait.old_wait_time"  type="textarea" autosize=""></el-input>
             </el-form-item>
 
             <el-form-item label="后置等待查询语句" prop="wait.new_wait_sql">
-              <el-input v-model="Form.wait.new_wait_sql"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.wait.new_wait_sql"  type="textarea" autosize=""></el-input>
             </el-form-item>
 
             <el-form-item label="后置等待数据库运行">
               <el-button @click="run_new_wait_mysql" type="primary" class="el-col-24">运行</el-button>
             </el-form-item>
             <el-form-item label="后置等待数据库查询" prop="wait.new_wait_mysql" >
-              <el-select v-model="Form.wait.new_wait_mysql" placeholder="请选择" size="big" value="" class="el-col-24" >
+              <el-select v-model="Form.wait.new_wait_mysql" filterable placeholder="请选择" size="big" value="" class="el-col-24" >
                 <el-option
                   v-for="item in mysqls"
                   :key="item.id"
@@ -101,21 +101,21 @@
               </el-select>
             </el-form-item>
             <el-form-item label="后置等待预期结果" prop="wait.new_wait">
-              <el-input v-model="Form.wait.new_wait"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.wait.new_wait"  type="textarea" autosize=""></el-input>
             </el-form-item>
             <el-form-item label="后置等待超时设置" prop="wait.new_wait_time">
-              <el-input v-model="Form.wait.new_wait_time"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.wait.new_wait_time"  type="textarea" autosize=""></el-input>
             </el-form-item>
           </div>
         </div>
         <div class="el-col-8">
           <div v-show="sql_config">
             <el-form-item label="前置数据库查询语句" prop="old_sql">
-              <el-input v-model="Form.old_sql"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.old_sql"  type="textarea" autosize=""></el-input>
             </el-form-item>
 
             <el-form-item label="前置数据库查询" prop="old_sql_id" >
-              <el-select v-model="Form.old_sql_id" placeholder="请选择" size="big" value="" class="el-col-24" >
+              <el-select v-model="Form.old_sql_id" filterable placeholder="请选择" size="big" value="" class="el-col-24" >
                 <el-option
                   v-for="item in mysqls"
                   :key="item.id"
@@ -128,17 +128,17 @@
               <el-button @click="run_old_mysql" type="primary" class="el-col-24">运行</el-button>
             </el-form-item>
             <el-form-item label="前置数据库注册变量" prop="old_sql_regist_variable">
-              <el-input v-model="Form.old_sql_regist_variable"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.old_sql_regist_variable"  type="textarea" autosize=""></el-input>
             </el-form-item>
             <el-form-item label="前置数据库预期结果" prop="old_sql_hope_result">
-              <el-input v-model="Form.old_sql_hope_result"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.old_sql_hope_result"  type="textarea" autosize=""></el-input>
             </el-form-item>
 
             <el-form-item label="后置数据库查询语句" prop="new_sql">
-              <el-input v-model="Form.new_sql"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.new_sql"  type="textarea" autosize=""></el-input>
             </el-form-item>
             <el-form-item label="后置数据库查询" prop="new_sql_id" >
-              <el-select v-model="Form.new_sql_id" placeholder="请选择" size="big" value="" class="el-col-24" >
+              <el-select v-model="Form.new_sql_id" filterable placeholder="请选择" size="big" value="" class="el-col-24" >
                 <el-option
                   v-for="item in mysqls"
                   :key="item.id"
@@ -151,10 +151,10 @@
               <el-button @click="run_new_mysql" type="primary" class="el-col-24">运行</el-button>
             </el-form-item>
             <el-form-item label="后置数据库注册变量" prop="new_sql_regist_variable">
-              <el-input v-model="Form.new_sql_regist_variable"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.new_sql_regist_variable"  type="textarea" autosize=""></el-input>
             </el-form-item>
             <el-form-item label="后置数据库预期结果" prop="new_sql_hope_result">
-              <el-input v-model="Form.new_sql_hope_result"  type="textarea" :rows="2"></el-input>
+              <el-input v-model="Form.new_sql_hope_result"  type="textarea" autosize=""></el-input>
             </el-form-item>
           </div>
         </div>

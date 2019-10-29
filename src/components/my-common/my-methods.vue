@@ -196,6 +196,7 @@
                           this.$store.commit('SetDate',{key:'model_cases', value:res.model_cases})
                       }
                       that.tableData = that.tabledata =  res.list;
+                      // if (that.tableData) {that.loading = false}
                       //
                   }
                   else {

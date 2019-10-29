@@ -12,6 +12,7 @@ import job_list from "../components/job/job_list";
 
 import report_list from "../components/report/report_list";
 import report_email from "../components/report/report_email";
+import report from "../components/report/report";
 
 import scene_list from '../components/scene/scene_list';
 import scene_edit from "../components/scene/scene_edit";
@@ -117,6 +118,15 @@ export default new Router({
       component:report_email,
       meta: {
               title: "报告发送",
+              show: true
+          }
+    },
+    {
+      path:'/report/:id?',
+      name:'report',
+      component:report,
+      meta: {
+              title: "报告详情",
               show: true
           }
     },

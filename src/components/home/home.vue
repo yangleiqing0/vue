@@ -102,6 +102,7 @@
                 <el-menu-item index="report_email"></el-menu-item>
                 <el-menu-item index="case_edit"></el-menu-item>
                 <el-menu-item index="scene_edit"></el-menu-item>
+                <el-menu-item index="report"></el-menu-item>
               </div>
           </el-menu>
           <el-main>

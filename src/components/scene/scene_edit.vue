@@ -7,7 +7,7 @@
         <el-input v-model="Form.name"></el-input>
       </el-form-item>
        <el-form-item label="场景分组" prop="group_id">
-          <el-select v-model="Form.group_id" placeholder="请选择" class="el-col-24" size="big" value="">
+          <el-select v-model="Form.group_id" filterable placeholder="请选择" class="el-col-24" size="big" value="">
             <el-option
               v-for="item in groups"
               :key="item.id"
