@@ -1,6 +1,6 @@
 <template >
   <div class="app">
-    <div class="el-col-24 out-operate">
+    <div class="el-col-24 out-operate" v-if="table_name !== 'report_detail'">
           <div  :class="up_class">
             <el-input
               v-model="search"
@@ -39,7 +39,7 @@
       :tree-props="tree_props"
       >
       <slot></slot>
-        <el-table-column align="left"  :width="operate_width">
+        <el-table-column align="left"  :width="operate_width" v-if="table_name !== 'report_detail'">
           <template slot="header" slot-scope="scope">
             操作
           </template>
@@ -73,7 +73,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="tabListPage">
+    <div class="tabListPage" v-if="table_name !== 'report_detail'">
       <div>
        <el-pagination @size-change="handleSizeChange"
                       @current-change="handleCurrentChange"
