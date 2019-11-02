@@ -17,11 +17,8 @@
       :row-style="{height:'20px'}"
       :cell-style="{padding:'5px'}"
       :tree_props="tree"
+      :span-method="SpanMethod"
       >
-      <el-table-column show-overflow-tooltip sortable=""
-      type="index"
-      width="50">
-      </el-table-column>
       <el-table-column show-overflow-tooltip
         prop="t_name"
         sortable=""
@@ -59,7 +56,7 @@
       </el-table-column>
       <el-table-column show-overflow-tooltip
         sortable=""
-        prop="old_database_value"
+        prop="old_sql_value"
         label="数据库原值">
       </el-table-column>
       <el-table-column show-overflow-tooltip
@@ -69,7 +66,7 @@
       </el-table-column>
       <el-table-column show-overflow-tooltip
         sortable=""
-        prop="new_database_value"
+        prop="new_sql_value"
         label="数据库现值">
       </el-table-column>
       <el-table-column show-overflow-tooltip
@@ -113,6 +110,26 @@
           }
       },
       methods:{
+         SpanMethod({ row, column, rowIndex, columnIndex }){
+             // 如果存在场景id 按照场景显示
+             if(row.count) {
+                 if (columnIndex === 1) {
+                     row.t_name = row.name;
+                     return [1, 11]
+                 }else if(12 > columnIndex  &&  columnIndex > 1){
+                      // 被合并的单元不宽度为0
+                     return [0, 0]
+                 }
+             }else {
+                 // console.log('row.data', row.data, row.testcase_data)
+                row.t_name=(row.t_name)? row.t_name:row["testcase_name"];
+                row.url=(row.url)? row.url:row["testcase_url"];
+                row.method=(row.method)? row.method:row["testcase_method"];
+                row.request_body=(row.request_body)? row.request_body:row["testcase_data"];
+                row.hope=(row.hope)? row.hope:row["testcase_hope_result"];
+                row.test_result=(row.test_result)? row.test_result:row["testcase_test_result"];
+             }
+         },
          get_params(){
              let id = this.$route.params.id;
              this.$axios.post(this.$root.$api + 'report', {id: id})
