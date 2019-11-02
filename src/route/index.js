@@ -104,7 +104,7 @@ export default new Router({
           }
     },
     {
-      path:'/report_list:page?',
+      path:'/report_list/:page?',
       component:report_list,
       name:'report_list',
       meta: {

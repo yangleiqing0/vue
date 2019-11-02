@@ -113,10 +113,10 @@
          SpanMethod({ row, column, rowIndex, columnIndex }){
              // 如果存在场景id 按照场景显示
              if(row.count) {
-                 if (columnIndex === 1) {
+                 if (columnIndex === 0) {
                      row.t_name = row.name;
                      return [1, 11]
-                 }else if(12 > columnIndex  &&  columnIndex > 1){
+                 }else if(11 > columnIndex  &&  columnIndex > 0){
                       // 被合并的单元不宽度为0
                      return [0, 0]
                  }
