@@ -8,7 +8,7 @@
               placeholder="输入关键字搜索" class="no-padding search "/>
                   <div class="no-padding operate">
                     <el-button
-                    size="mini" v-if="table_name!=='report'"
+                    size="mini" v-if="table_name!=='report' && table_name!=='job'"
                     @click="handleEdit(0, '')" class="no-margin" style="margin-top: 2px">添加</el-button>
                     <form v-if="table_name ==='case'" :action="href+'/case_upload'" method="post" enctype="multipart/form-data" style="margin-top: -6px;float: left">
                       <div class="padding-top">
@@ -90,10 +90,6 @@
 </template>
 
 <script>
-  let tds = document.getElementsByClassName('cell');
-  for(let i=0;i<tds.length;i++){
-
-  }
 
   export default {
      name:'my_table',
@@ -127,6 +123,7 @@
 
          handleEdit(index, row) {
              if(this.table_name === 'scene'){
+                 console.log('edit:', row.children, row)
                  if(row.children === '' || row.children || row === ''){ this.my_edit('scene_edit', {'row':row, 'page': this.currentPage || 1, 'groups': this.groups, 'model_scenes':this.model_scenes, 'model_cases':this.model_cases, id:row.id}, this)}
                  else{this.my_edit('case_edit', {'row':row, 'page': this.currentPage || 1, 'groups': this.groups, 'headers':this.headers, 'mysqls':this.mysqls, id:row.id}, this)}
 

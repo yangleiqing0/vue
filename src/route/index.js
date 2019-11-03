@@ -9,6 +9,7 @@ import case_edit from "../components/case/case_edit";
 import case_url from "../components/case/case_url";
 
 import job_list from "../components/job/job_list";
+import job_edit from "../components/job/job_edit";
 
 import report_list from "../components/report/report_list";
 import report_email from "../components/report/report_email";
@@ -96,10 +97,20 @@ export default new Router({
           }
     },
     {
-      path:'/job_list',
+      path:'/job_list/:page?',
       component:job_list,
+      name:'job_list',
       meta: {
               title: "测试任务",
+              show: true
+          }
+    },
+    {
+      path:'/job_edit/:id?',
+      name:'job_edit',
+      component:job_edit,
+      meta: {
+              title: "任务编辑",
               show: true
           }
     },

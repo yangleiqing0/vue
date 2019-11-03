@@ -9,6 +9,7 @@ const store = new Vuex.Store({
       user: null,
       api:'/api',
       email_methods:[{key:1, value:'图片'},{key:2, value:'附件'}],
+      is_start_status:[false,true],
       my_all_table: {
       case_list:[],
       group_list:[],
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
       report_list:[],
       scene_list:[],
       variable_list:[],
-      email_list:[]
+      email_list:[],
+      job_list:[],
       },
       case_url:[],
       // 每个数据组可显示与user_id=用户的数据
