@@ -266,7 +266,9 @@
       that.$axios.post(that.$root.$api + route, {id:id})
           .then(res => {
               that.Form = res.list;
-              if (route === 'job_list'){that.Form.is_start = (that.Form.is_start !== 0)}
+              if (route === 'job_list'){
+                  that.Form.is_start = (that.Form.is_start !== 0);
+              }
           })
   };
   Vue.prototype.my_get_localStore = function (key) {
