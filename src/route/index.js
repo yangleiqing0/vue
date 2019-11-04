@@ -33,6 +33,7 @@ import email_edit from "../components/email/email_edit";
 import mysql_list from "../components/mysql/mysql_list";
 import mysql_edit from "../components/mysql/mysql_edit";
 
+import request_play from "../components/request/request_play";
 
 Vue.use(Router); // 这里别漏掉了
 
@@ -247,6 +248,15 @@ export default new Router({
       component: mysql_edit,
       meta: {
               title: "数据库配置编辑",
+              show: true
+          }
+    },
+    {
+      path:'/request_play',
+      name:'request_play',
+      component: request_play,
+      meta: {
+              title: "测试执行",
               show: true
           }
     }

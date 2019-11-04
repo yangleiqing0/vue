@@ -58,7 +58,7 @@
                   <i class="am-icon-briefcase am-icon-fw"></i>
                   <span slot="title">测试场景</span>
                 </el-menu-item>
-                <el-menu-item index="3"  style="padding-left: 0">
+                <el-menu-item index="request_play"  style="padding-left: 0">
                   <i class="am-icon-play am-icon-fw"></i>
                   <span slot="title">测试执行</span>
                 </el-menu-item>
