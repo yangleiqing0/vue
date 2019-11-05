@@ -2,8 +2,7 @@
   <div>
     <el-collapse v-model="activeNames" @change="handleChange">
         <el-collapse-item   v-for="(group, index) in tableData" :key="index" :name="group.id" :title="group.name">
-          <template><el-button type="primary" plain class="full-width" >{{group.name}}</el-button></template>
-
+          <el-button slot="title" type="primary" plain class="full-width" >{{group.name}}</el-button>
           <MyCheckBox @on-checkall-change="onCheckAllChange" :index="index"
                       :checkAll="group.checkAll" @on-choose-change="onChooseChange"
                       @on-isIndeterminate-change="onIsIndeterminate"

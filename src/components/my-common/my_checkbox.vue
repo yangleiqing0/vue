@@ -1,9 +1,16 @@
 <template>
   <div class="line-height-normal">
-        <el-checkbox class="margin-left: 10px" :indeterminate="myIsIndeterminate" :index="index" v-model="myCheckAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-checkbox class="margin-left-10" :indeterminate="myIsIndeterminate" :index="index" v-model="myCheckAll" @change="handleCheckAllChange">全选</el-checkbox>
         <el-checkbox-group v-model="myChoose" @change="handleCheckChange">
           <template v-for="data in data_list" >
-            <el-checkbox-button class="margin-left-10"  :label="data.id" :key="data.id">{{data.name}}</el-checkbox-button>
+            <div class="" style="display: inline-block">
+              <el-badge value="场景" type="success" class="item margin-top-10"  v-if="data['is_testcase_scene']===1">
+                <el-checkbox-button class="margin-left-10" :label="data.id" :key="data.id">{{data.name}}</el-checkbox-button>
+              </el-badge>
+              <el-badge value="用例" type="primary" class="item margin-top-10" v-else-if="data['is_testcase_scene']===0">
+                <el-checkbox-button class="margin-left-10" :label="data.id" :key="data.id">{{data.name}}</el-checkbox-button>
+              </el-badge>
+            </div>
           </template>
         </el-checkbox-group>
   </div>
