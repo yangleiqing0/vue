@@ -251,7 +251,7 @@
 
 
   Vue.prototype.my_all_request = function () {
-      let all_list = this.$my_list;
+      let all_list = this.$store.state.my_list;
       if (this.$root.$user_id) {
           for (let i = 0; i < all_list.length; i++) {
               this.my_request(all_list[i] + '_list', this, true);

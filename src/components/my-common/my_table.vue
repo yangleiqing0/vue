@@ -211,7 +211,8 @@
             console.log(this.$store.state.my_all_table[this.table_name+'_list']);
             if(this.$store.state.my_all_table[this.table_name+'_list'].length === 0){
                 if(localStorage.getItem('my_all_table' + this.table_name+'_list')){
-                  let all_list = this.$my_list;
+                  let all_list = this.$store.state.my_list;
+                  console.log('all_list', all_list)
                   for (let i = 0; i < all_list.length; i++) {
                       this.$store.state.my_all_table[all_list[i]+'_list'] = JSON.parse(localStorage.getItem('my_all_table' + all_list[i]+'_list'))
                   }

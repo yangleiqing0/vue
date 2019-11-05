@@ -9,6 +9,7 @@ const store = new Vuex.Store({
       user: null,
       api:'/api',
       email_methods:[{key:1, value:'图片'},{key:2, value:'附件'}],
+      my_list : ['group', 'header', 'mysql', 'case', 'report', 'scene', 'variable', 'email', 'job'],
       is_start_status:[false,true],
       my_all_table: {
       case_list:[],
@@ -50,7 +51,9 @@ const store = new Vuex.Store({
     },
     SetDate(state, data){
        state[data.key] = data.value;
-       localStorage.setItem(data.key, JSON.stringify(data.value))
+       if (data.value!==undefined) {
+         localStorage.setItem(data.key, JSON.stringify(data.value))
+       }
 
     }
   }

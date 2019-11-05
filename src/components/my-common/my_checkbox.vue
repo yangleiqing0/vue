@@ -1,18 +1,18 @@
 <template>
   <div class="line-height-normal">
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-        <el-checkbox-group v-model="choose" @change="handleCheckChange">
+        <el-checkbox :indeterminate="myIsIndeterminate" :index="index" v-model="myCheckAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-checkbox-group v-model="myChoose" @change="handleCheckChange">
           <el-checkbox-button checked v-for="data in data_list" :label="data.id" :key="data.id">{{data.name}}</el-checkbox-button>
         </el-checkbox-group>
   </div>
-
 </template>
 
 <script>
     export default {
         name: "my_checkbox",
         props:{
-            checkAll:{default: true, type: Boolean},
+            index:{},
+            checkAll:{},
             isIndeterminate:{default: false, type: Boolean},
             choose:{
                 default: function() {
@@ -27,7 +27,10 @@
         },
         data(){
             return{
-
+                myCheckAll: this.checkAll,
+                myChoose: this.choose,
+                myIsIndeterminate: this. isIndeterminate,
+                mData_list: this.data_list
             }
         },
         methods:{
@@ -37,14 +40,34 @@
               for(let i=0;i<test_case.length;i++){
                   test_case_list.push(test_case[i].id)
               }
-              this.choose = val ? test_case_list : [];
-              this.isIndeterminate = false;
+              this.myChoose = val ? test_case_list : [];
+              this.myIsIndeterminate = false;
             },
             handleCheckChange(val){
                   let checkedCount = val.length;
-                  this.checkAll = checkedCount === this.data_list.length;
-                  this.isIndeterminate = checkedCount > 0 && checkedCount < this.data_list.length;
+                  this.myCheckAll = checkedCount === this.data_list.length;
+                  this.myIsIndeterminate = checkedCount > 0 && checkedCount < this.data_list.length;
             },
+        },
+        watch:{
+          isIndeterminate(val){
+            this.myIsIndeterminate = val
+          },
+          myIsIndeterminate(val){
+            this.$emit('on-isIndeterminate-change', {val:val, index:this.index})
+          },
+          choose(val){
+            this.myChoose = val
+          },
+          myChoose(val){
+            this.$emit('on-choose-change', {val:val, index:this.index})
+          },
+          checkAll(val){
+            this.myCheckAll = val;
+          },
+          myCheckAll(val){
+            this.$emit('on-checkall-change',{val:val, index:this.index})
+          }
         }
     }
 </script>

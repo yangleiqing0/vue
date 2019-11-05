@@ -30,7 +30,6 @@
       email_list:[]
   };
   // 每个数据组的首页的与user_id=用户的数据
-  Vue.prototype.$my_list = ['group', 'header', 'mysql', 'case', 'report', 'scene', 'variable', 'email', 'job'];
   Vue.prototype.$my_email = store.state.email_methods;
   Vue.prototype.$currentPage = 1;
   Vue.prototype.$totalCount = {

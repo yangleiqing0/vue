@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div  v-for="group in tableData" :key="group.id">
+    <div  v-for="(group, index) in tableData" :key="group.id" >
       <el-button type="primary" plain class="full-width" >{{group.name}}</el-button>
-      <MyCheckBox ref="choose_list" v-if="group['testcase_list'].length >0" :data_list="group['testcase_list']"></MyCheckBox>
+      <MyCheckBox @on-checkall-change="onCheckAllChange" :index="index"
+                  :checkAll="group.checkAll" @on-choose-change="onChooseChange"
+                  @on-isIndeterminate-change="onIsIndeterminate"
+                  :choose="group.choose" v-if="group.testcase_list !== ''"
+                  :data_list="group.testcase_list"></MyCheckBox>
     </div>
   </div>
 </template>
@@ -12,7 +16,7 @@
         name: "request_play",
         data(){
             return{
-                tableData:[]
+                tableData:[{choose:[], checkAll:[],testcase_list:[],onIsIndeterminate:true}]
             }
         },
         methods:{
@@ -21,8 +25,18 @@
                     .then(res=>{
                         this.tableData = res.list;
                         console.log('play', this.tableData)
-                        console.log('choo', this.$refs['choose_list'].choose)
                     })
+            },
+            onCheckAllChange(val){
+              console.log('onCheckAllChange', val)
+              this.tableData[val.index].checkAll = val.val;
+            },
+            onChooseChange(val){
+              console.log('onChooseChange', val)
+              this.tableData[val.index].choose = val.val;
+            },
+            onIsIndeterminate(val){
+              this.tableData[val.index].onIsIndeterminate = val.val;
             }
         },
         created() {
