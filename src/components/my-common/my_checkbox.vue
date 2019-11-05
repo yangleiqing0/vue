@@ -1,8 +1,10 @@
 <template>
   <div class="line-height-normal">
-        <el-checkbox :indeterminate="myIsIndeterminate" :index="index" v-model="myCheckAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-checkbox class="margin-left: 10px" :indeterminate="myIsIndeterminate" :index="index" v-model="myCheckAll" @change="handleCheckAllChange">全选</el-checkbox>
         <el-checkbox-group v-model="myChoose" @change="handleCheckChange">
-          <el-checkbox-button checked v-for="data in data_list" :label="data.id" :key="data.id">{{data.name}}</el-checkbox-button>
+          <template v-for="data in data_list" >
+            <el-checkbox-button class="margin-left-10"  :label="data.id" :key="data.id">{{data.name}}</el-checkbox-button>
+          </template>
         </el-checkbox-group>
   </div>
 </template>
@@ -72,6 +74,6 @@
     }
 </script>
 
-<style scoped>
+<style >
 
 </style>
