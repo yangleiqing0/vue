@@ -104,6 +104,7 @@
                 <el-menu-item index="scene_edit"></el-menu-item>
                 <el-menu-item index="report"></el-menu-item>
                 <el-menu-item index="job_edit"></el-menu-item>
+                <el-menu-item index="request"></el-menu-item>
               </div>
           </el-menu>
           <el-main>

@@ -2,7 +2,9 @@
   <div>
     <el-collapse v-model="activeNames" @change="handleChange">
         <el-collapse-item   v-for="(group, index) in tableData" :key="index" :name="group.id" :title="group.name">
-          <el-button slot="title" type="primary" plain class="full-width" >{{group.name}}</el-button>
+          <el-badge :value="group.testcase_list.length" type="info" slot="title" class="full-width">
+            <el-button   type="primary" plain class="full-width" >{{group.name}}</el-button>
+          </el-badge>
           <MyCheckBox @on-checkall-change="onCheckAllChange" :index="index"
                       :checkAll="group.checkAll" @on-choose-change="onChooseChange"
                       @on-isIndeterminate-change="onIsIndeterminate"
@@ -36,7 +38,16 @@
                     }
                   }
               }
-              console.log('submitCase:', case_list, scene_list)
+              // this.$axios.post(this.$store.state.api + 'request_list',{case_list:case_list, scene_list:scene_list})
+              //     .then(res=>)
+              // console.log('submitCase:', case_list, scene_list)
+              this.$router.push({
+                  name: 'request',
+                  params:{
+                      case_list:case_list,
+                      scene_list:scene_list
+                  }
+              })
             },
             handleChange(val) {
               console.log(val);

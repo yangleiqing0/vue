@@ -5,7 +5,7 @@
           <template v-for="(data,index) in data_list" >
             <div class=" el-col-6" style="display: inline-block;padding:0 60px 0 40px" >
               <el-badge :value="data['is_testcase_scene']===1?'场景':'用例'"
-                        :type="data['is_testcase_scene']===1?'success':'primary'"
+                        :type="data['is_testcase_scene']===1?'primary':'success'"
                         class="item margin-top-10 el-col-24"   >
                 <!--                根据 用例是否为场景来添加首字符为0/1，后面数字为对应的id-->
                 <el-checkbox-button class="el-col-24" :label="data['is_testcase_scene']+''+data.id" :key="index">{{data.name}}</el-checkbox-button>
@@ -47,8 +47,7 @@
               let test_case = this.data_list;
               let test_case_list = [];
               for(let i=0;i<test_case.length;i++){
-                  // 根据 用例是否为场景来添加首字符为0/1，后面数字为对应的id
-                  test_case_list.push(test_case[i]['is_testcase_scene'] + '' + test_case[i].id)
+                  test_case_list.push(test_case[i]['is_testcase_scene']+''+test_case[i].id)
               }
               this.myChoose = val ? test_case_list : [];
               this.myIsIndeterminate = false;

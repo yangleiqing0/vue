@@ -34,6 +34,7 @@ import mysql_list from "../components/mysql/mysql_list";
 import mysql_edit from "../components/mysql/mysql_edit";
 
 import request_play from "../components/request/request_play";
+import request from "../components/request/request";
 
 Vue.use(Router); // 这里别漏掉了
 
@@ -256,7 +257,16 @@ export default new Router({
       name:'request_play',
       component: request_play,
       meta: {
-              title: "测试执行",
+              title: "测试执行列表",
+              show: true
+          }
+    },
+    {
+      path:'/request',
+      name:'request',
+      component: request,
+      meta: {
+              title: "测试执行页面",
               show: true
           }
     }
