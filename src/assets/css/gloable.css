@@ -223,6 +223,8 @@ li,a,i{
 .line-height-normal{
   line-height: 0;
   text-align: left;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 .margin-left-10 {
   margin-left: 40px !important;
@@ -233,4 +235,9 @@ li,a,i{
 .margin-top-10 {
   margin-top: 10px
 }
-
+.el-checkbox-button.el-col-24>span{
+  width: 100%;
+}
+.el-form-item__content:first-child{
+  margin-left: 0 !important;
+}

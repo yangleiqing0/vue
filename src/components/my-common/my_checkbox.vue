@@ -1,14 +1,14 @@
 <template>
   <div class="line-height-normal">
-        <el-checkbox class="margin-left-10" :indeterminate="myIsIndeterminate" :index="index" v-model="myCheckAll" @change="handleCheckAllChange">全选</el-checkbox>
-        <el-checkbox-group v-model="myChoose" @change="handleCheckChange">
-          <template v-for="data in data_list" >
-            <div class="" style="display: inline-block">
-              <el-badge value="场景" type="success" class="item margin-top-10"  v-if="data['is_testcase_scene']===1">
-                <el-checkbox-button class="margin-left-10" :label="data.id" :key="data.id">{{data.name}}</el-checkbox-button>
-              </el-badge>
-              <el-badge value="用例" type="primary" class="item margin-top-10" v-else-if="data['is_testcase_scene']===0">
-                <el-checkbox-button class="margin-left-10" :label="data.id" :key="data.id">{{data.name}}</el-checkbox-button>
+        <el-checkbox class="margin-left-10" v-if="data_list.length>0" :indeterminate="myIsIndeterminate" :index="index" v-model="myCheckAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-checkbox-group  v-model="myChoose" @change="handleCheckChange">
+          <template v-for="(data,index) in data_list" >
+            <div class=" el-col-6" style="display: inline-block;padding:0 60px 0 40px" >
+              <el-badge :value="data['is_testcase_scene']===1?'场景':'用例'"
+                        :type="data['is_testcase_scene']===1?'success':'primary'"
+                        class="item margin-top-10 el-col-24"   >
+                <!--                根据 用例是否为场景来添加首字符为0/1，后面数字为对应的id-->
+                <el-checkbox-button class="el-col-24" :label="data['is_testcase_scene']+''+data.id" :key="index">{{data.name}}</el-checkbox-button>
               </el-badge>
             </div>
           </template>
@@ -47,7 +47,8 @@
               let test_case = this.data_list;
               let test_case_list = [];
               for(let i=0;i<test_case.length;i++){
-                  test_case_list.push(test_case[i].id)
+                  // 根据 用例是否为场景来添加首字符为0/1，后面数字为对应的id
+                  test_case_list.push(test_case[i]['is_testcase_scene'] + '' + test_case[i].id)
               }
               this.myChoose = val ? test_case_list : [];
               this.myIsIndeterminate = false;

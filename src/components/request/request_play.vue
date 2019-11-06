@@ -10,6 +10,8 @@
                       :data_list="group.testcase_list"></MyCheckBox>
         </el-collapse-item>
     </el-collapse>
+    <el-button type="primary" @click="submitCase">提交</el-button>
+    <el-button @click="submitCase">添为任务</el-button>
   </div>
 </template>
 
@@ -23,6 +25,19 @@
             }
         },
         methods:{
+            submitCase(){
+              let data = this.tableData;
+              let scene_list = [];
+              let case_list = [];
+              for (let i = 0; i <data.length ; i++) {
+                  if (data[i].choose){
+                    for (let j = 0; j <data[i].choose.length ; j++) {
+                        if(data[i].choose[j][0] === '0'){ case_list.push(data[i].choose[j].substr(1))}else{scene_list.push(data[i].choose[j].substr(1))}
+                    }
+                  }
+              }
+              console.log('submitCase:', case_list, scene_list)
+            },
             handleChange(val) {
               console.log(val);
             },
