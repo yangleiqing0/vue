@@ -247,3 +247,10 @@ li,a,i{
   top: 50% !important;
   right: 2% !important;
 }
+.request.el-loading-parent--relative{
+  position: unset!important;
+}
+.request.el-loading-parent--relative>div>.el-loading-spinner{
+  top:25% !important;
+  margin-top: 0 !important;
+}

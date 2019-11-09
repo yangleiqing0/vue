@@ -132,7 +132,7 @@
          },
          get_params(){
              let id = this.$route.params.id;
-             this.$axios.post(this.$root.$api + 'report', {id: id})
+             this.$axios.get(this.$root.$api + 'report?id='+ id,)
                   .then(res => {
                       const {allocation, items} = res;
                       const {zdbm_version, test_net, fail_sum, time_strftime, test_pl, test_sum, test_name, score, test_success} = allocation;

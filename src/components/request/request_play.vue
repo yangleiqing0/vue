@@ -38,16 +38,24 @@
                     }
                   }
               }
+              this.$axios.post(this.$store.state.api + 'time_get', {case_list:case_list, scene_list:scene_list})
+                  .then(res=>{
+                      console.log('time_get', res['time_id'], res['scene_async'])
+                      this.$router.push({
+                          name: 'request',
+                          query:{scene_async:res['scene_async']},
+                          params:{
+                              id:res['time_id'],
+                              case_list:case_list,
+                              scene_list:scene_list
+                          }
+                      })
+
+                  })
               // this.$axios.post(this.$store.state.api + 'request_list',{case_list:case_list, scene_list:scene_list})
               //     .then(res=>)
               // console.log('submitCase:', case_list, scene_list)
-              this.$router.push({
-                  name: 'request',
-                  params:{
-                      case_list:case_list,
-                      scene_list:scene_list
-                  }
-              })
+
             },
             handleChange(val) {
               console.log(val);

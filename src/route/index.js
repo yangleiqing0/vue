@@ -262,7 +262,7 @@ export default new Router({
           }
     },
     {
-      path:'/request',
+      path:'/request/:id?',
       name:'request',
       component: request,
       meta: {
