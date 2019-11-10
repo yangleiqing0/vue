@@ -8,6 +8,10 @@ const store = new Vuex.Store({
     return {
       user: null,
       api:'/api',
+      // api: process.env.URL_PATH,
+      // api:'http://192.168.1.11:20001/',
+      // api:'http://127.0.0.1:5000/',
+      // 设置请求的地址
       email_methods:[{key:1, value:'图片'},{key:2, value:'附件'}],
       my_list : ['group', 'header', 'mysql', 'case', 'report', 'scene', 'variable', 'email', 'job'],
       is_start_status:[false,true],

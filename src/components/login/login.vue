@@ -60,7 +60,7 @@
             this.$refs[formName].validate((valid) => {
               if (valid) {
                   let that = this;
-                  that.$axios.post('/api/login', {
+                  that.$axios.post(this.$store.state.api + 'login', {
                   'username': that.ruleForm.username,
                   'password': that.ruleForm.password
               })
