@@ -245,7 +245,7 @@ li,a,i{
 .el-badge.full-width>sup{
   position: absolute;
   top: 50% !important;
-  right: 2% !important;
+  right: 3% !important;
 }
 .request.el-loading-parent--relative{
   position: unset!important;

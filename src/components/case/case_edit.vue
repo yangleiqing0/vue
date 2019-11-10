@@ -27,10 +27,10 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="请求方式" prop="method">
+        <el-form-item label="请求方式" prop="method" :rules="lengthCheck(0,10)">
           <el-input v-model="Form.method" type="textarea" autosize=""></el-input>
         </el-form-item>
-         <el-form-item label="请求接口" prop="url">
+         <el-form-item label="请求接口" prop="url" :rules="lengthCheck(0,500)">
           <el-input v-model="Form.url" type="textarea" autosize=""></el-input>
         </el-form-item>
          <el-form-item label="注册变量" prop="regist_variable">
@@ -79,7 +79,7 @@
             <el-form-item label="前置等待预期结果" prop="wait.old_wait">
               <el-input v-model="Form.wait.old_wait"  type="textarea" autosize=""></el-input>
             </el-form-item>
-            <el-form-item label="前置等待超时设置" prop="wait.old_wait_time">
+            <el-form-item label="前置等待超时设置" prop="wait.old_wait_time" :rules="typeNumber">
               <el-input v-model="Form.wait.old_wait_time"  type="textarea" autosize=""></el-input>
             </el-form-item>
 
@@ -103,7 +103,7 @@
             <el-form-item label="后置等待预期结果" prop="wait.new_wait">
               <el-input v-model="Form.wait.new_wait"  type="textarea" autosize=""></el-input>
             </el-form-item>
-            <el-form-item label="后置等待超时设置" prop="wait.new_wait_time">
+            <el-form-item label="后置等待超时设置" prop="wait.new_wait_time" :rules="typeNumber">
               <el-input v-model="Form.wait.new_wait_time"  type="textarea" autosize=""></el-input>
             </el-form-item>
           </div>
@@ -212,22 +212,39 @@
                   });
           }
         };
+        var checkHopeWait = (rule, value, callback) => {
+            if (!value) {
+
+            }else {
+                this.$axios.post('/api/hope_validate', {
+                    hope_result: value
+                })
+                    .then(res => {
+                        if (res) {
+                            callback();
+                        } else {
+                            return callback(new Error('格式错误,例如 包含:0'));
+                        }
+                    });
+            }
+          };
         var checkHope = (rule, value, callback) => {
           if (!value) {
               return callback(new Error('不能为空'));
           }else {
               this.$axios.post('/api/hope_validate', {
-                  hope_result: this.Form.hope_result})
+                  hope_result: value})
                   .then(res=>{
                       if(res) {
                           callback();
                       }else{
-                          return callback(new Error('格式错误'));
+                          return callback(new Error('格式错误,例如 包含:0'));
                       }
                   });
           }
         };
         return {
+            typeNumber:{pattern: /^\d+\d*$/, message: '必须为正整数'},
             is_models:[{id:0,value:'否'},{id:1,value:'是'}],
             value: '',
             groups:this.$store.state.my_all_table['group_list'],
@@ -267,20 +284,25 @@
                 testcase_scene_id: null
             },
             rules: {
-                name: [
-                  { validator: checkName, trigger: 'blur' }
-                ],
-                regular: [
-                { validator: checkRegular, trigger: 'blur' }
-              ],
-                hope_result:[
-                { validator: checkHope, trigger: 'blur' }
-              ],
+                name: [{ validator: checkName, trigger: 'blur' }],
+                regular: [{ validator: checkRegular, trigger: 'blur' }],
+                hope_result:[{ validator: checkHope, trigger: 'blur' }],
+                old_sql_hope_result:[{ validator: checkHopeWait, trigger: 'blur' }],
+                new_sql_hope_result:[{ validator: checkHopeWait, trigger: 'blur' }],
+                wait : {
+                    old_wait:[{ validator: checkHopeWait, trigger: 'blur' }],
+                    new_wait:[{ validator: checkHopeWait, trigger: 'blur' }],
+                }
             },
             labelPosition: 'right'
         };
       },
       methods:{
+          lengthCheck(min=0, max=0){
+              if(min && !max){return [{ required: true, message: '不可为空', trigger: 'blur' },{min:min, message: '不可少于'+min+'个', trigger: 'blur' }]}
+              else if(max && !min){return [{ required: true, message: '不可为空', trigger: 'blur' },{max:max, message: '不可超过'+max+'个', trigger: 'blur' }]}
+              else if(max && min){return [{ required: true, message: '不可为空', trigger: 'blur' },{max:max, min:min, message: '长度在'+min+'-'+max+'之间', trigger: 'blur' }]}
+              },
           run_old_wait_mysql(){
               this.test_run('mysql_run', {
                   mysql_id : this.Form.wait.old_wait_mysql,

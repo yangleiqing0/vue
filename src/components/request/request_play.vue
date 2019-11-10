@@ -2,6 +2,9 @@
   <div>
     <el-collapse v-model="activeNames" @change="handleChange">
         <el-collapse-item   v-for="(group, index) in tableData" :key="index" :name="group.id" :title="group.name">
+          <i style="color: #409EFF;margin-top: 3px" title="提升场景排序名次"
+             class="am-icon-arrow-up am-icon-fw" slot="title"
+             @click.stop="group_up(group)"></i>
           <el-badge :value="group.testcase_list.length" type="info" slot="title" class="full-width">
             <el-button   type="primary" plain class="full-width" >{{group.name}}</el-button>
           </el-badge>
@@ -9,7 +12,7 @@
                       :checkAll="group.checkAll" @on-choose-change="onChooseChange"
                       @on-isIndeterminate-change="onIsIndeterminate"
                       :choose="group.choose" v-if="group.testcase_list !== ''"
-                      :data_list="group.testcase_list"></MyCheckBox>
+                      :data_list="group.testcase_list" @on-onload-change="get_data()"></MyCheckBox>
         </el-collapse-item>
     </el-collapse>
     <el-button type="primary" @click="submitCase">提交</el-button>
@@ -27,6 +30,15 @@
             }
         },
         methods:{
+            group_up(group){
+              console.log('group_up', group.id)
+                this.$axios.post(this.$store.state.api + 'group_up', {id:group.id})
+                    .then(res=>{
+                        if(res){
+                           this.get_data()
+                        }
+                    })
+            },
             submitCase(){
               let data = this.tableData;
               let scene_list = [];
