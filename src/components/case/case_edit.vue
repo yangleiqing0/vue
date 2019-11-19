@@ -199,7 +199,7 @@
         };
         var checkRegular = (rule, value, callback) => {
           if (!value) {
-
+              callback();
           }else {
               this.$axios.post('/api/regular_validate', {
                   regular: this.Form.regular})
@@ -213,9 +213,7 @@
           }
         };
         var checkHopeWait = (rule, value, callback) => {
-            if (!value) {
-
-            }else {
+            if (value) {
                 this.$axios.post('/api/hope_validate', {
                     hope_result: value
                 })
@@ -226,7 +224,7 @@
                             return callback(new Error('格式错误,例如 包含:0'));
                         }
                     });
-            }
+            }else {callback()}
           };
         var checkHope = (rule, value, callback) => {
           if (!value) {

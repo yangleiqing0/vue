@@ -60,6 +60,6 @@ table{
   .mailTable>td, .mailTable>tr{
     text-align: left;
     font-size: 16px;
-    color: #71787E;
+    color: #f8f8f8;
   }
 </style>

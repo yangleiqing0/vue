@@ -75,6 +75,7 @@
             getParams(){//接收函数
                 this.Form = this.$route.params.row;
                 this.page = this.$route.params.page;
+                console.log('variable_edit page:', this.page)
                 if (this.$route.params.id && this.$route.params.row === undefined){
                   this.my_get_data(this.$route.params.id, 'variable_list', this)
                   console.log('variable_edit_refresh', this.Form);

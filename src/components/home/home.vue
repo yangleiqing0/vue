@@ -115,7 +115,7 @@
                :collapse="Right_isCollapse"
                background-color="#545c64"
                text-color="#fff" active-text-color="#ffd04b"  style="border-right: 0;border-left:solid 1px #e6e6e6 ;
-               word-break: break-all;word-wrap: break-word; padding: 10px" >
+               word-break: break-all;word-wrap: break-word; padding: 10px; overflow-y: auto" >
           </el-menu>
         </el-container>
       </el-container>
@@ -129,7 +129,7 @@
                     <el-radio-button :label="true">收起</el-radio-button>
                   </el-radio-group>
               </div>
-              <div class="el-col-8 el-col-offset-8" style="display: inline-block;text-align: right">
+              <div class="el-col-8 el-col-offset-8" style="display: inline-block;text-align: right;">
                 <el-radio-group v-model="Right_isCollapse">
                   <el-radio-button :label="true">收起</el-radio-button>
                   <el-radio-button :label="false">展开</el-radio-button>
@@ -179,13 +179,20 @@
         updated:function () {
         },
         created() {
-            if(this.$route.name) this.activeIndex = this.$route.name
+            if(this.$route.name) {
+                this.activeIndex = this.$route.name
+            }
         },
         watch:{
           //  监视搜索栏 进行筛选
             $route(to, from ,next){
-            // console.log('watch',this.$route.name, this.activeIndex);
-                if(this.$route.name !==  this.activeIndex) this.activeIndex = 'case_list'
+            console.log('watch',this.$route.name, this.activeIndex);
+                // if(this.$route.name !==  this.activeIndex) this.activeIndex = 'case_list'
+                if(this.$route.name ===  'login') {this.activeIndex = ''}
+                else {
+                    if (this.$route.name === 'case_list') this.activeIndex = 'case_list';
+                    if (this.$route.name === 'report') this.activeIndex = 'report_list'
+                }
             }
         }
 

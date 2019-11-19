@@ -3,11 +3,12 @@
   element-loading-text="拼命加载中"
   element-loading-spinner="el-icon-loading"
   element-loading-background="rgba(0, 0, 0, 0.8)" class="load">
-  <MyMailTable
-    :tableData="mail_tableData" :tableStyle="{ width:'1200px', lineHeight:'3',
-  margin:'0 auto', fontSize:'16px'}"
-  ></MyMailTable>
-
+    <div style="background-color: rgba(88,99,107,0.95)">
+        <MyMailTable
+      :tableData="mail_tableData" :tableStyle="{ width:'1200px', lineHeight:'3',
+    margin:'0 auto', fontSize:'16px'}"
+    ></MyMailTable>
+    </div>
     <el-table
       border
       empty-text

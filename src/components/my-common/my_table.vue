@@ -207,7 +207,8 @@
             }
       },
       created(){
-            console.log('totalCount  b', this.totalCount, this.tableData);
+            this.currentPage = this.$route.params.page?parseInt(this.$route.params.page): 1;
+            console.log('totalCount  b', this.totalCount, this.tableData, this.page);
             console.log(this.$store.state.my_all_table[this.table_name+'_list']);
             if(this.$store.state.my_all_table[this.table_name+'_list'].length === 0){
                 if(localStorage.getItem('my_all_table' + this.table_name+'_list')){
