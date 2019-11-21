@@ -6,24 +6,37 @@
               v-model="search"
               size="mini"
               placeholder="输入关键字搜索" class="no-padding search "/>
-                  <div class="no-padding operate">
+
                     <el-button
                     size="mini" v-if="table_name!=='report' && table_name!=='job'"
                     @click="handleEdit(0, '')" class="no-margin" style="margin-top: 2px">添加</el-button>
-                    <form v-if="table_name ==='case'" :action="href+'/case_upload'" method="post" enctype="multipart/form-data" style="margin-top: -6px;float: left">
-                      <div class="padding-top">
-                        <input type="file" id="upload_xlsx" name="upload_xlsx" class="el-button el-button--mini" style="width: 170px;padding: 2px;">
-                      </div>
-                      <div class="padding-top" style="margin-top: 8px;padding-right: 4px">
-                          <input type="submit" value="上传" class="el-button el-button--mini" style="margin-top: -2px">
-                      </div>
-                    </form>
+                    <div class="no-padding operate">
+
+                    <el-upload
+                      ref="upload"
+                      v-if="table_name ==='case'"
+                      class="upload_xlsx"
+                      name="upload_xlsx"
+                      accept="xlsx"
+                      :action="href+'/case_upload'"
+                      :on-preview="handlePreview"
+                      :on-remove="handleRemove"
+                      :before-remove="beforeRemove"
+                      :on-success="handleSuccess"
+                      :on-error="handleError"
+                      multiple="multiple"
+                      :limit="1"
+                      :on-exceed="handleExceed"
+                      >
+                      <el-button size="small" class="el-button el-button--mini" style="margin-top: 2px" type="primary">上传文件</el-button>
+                    </el-upload>
+
                     <el-link v-if="table_name ==='case'"  :underline=false  type="primary" :href="href+'/case_download'" style="margin-top: 2px"><el-button
                     size="mini"
                     style="margin-top: -3px">下载</el-button></el-link>
                     <el-button
                     size="mini"
-                    @click="handleDelete(0, 'more')" class=" no-margin" style="margin-top: 2px">批量删除</el-button>
+                    @click="handleDelete(0, 'more')" class="no-margin" style="margin-top: 2px">批量删除</el-button>
                   </div>
           </div>
       </div>
@@ -117,6 +130,29 @@
          },
      },
      methods: {
+          submitUpload() {
+            this.$refs.upload.submit();
+          },
+         handleError(val){
+             console.log('error', val.response, typeof val.response);
+         },
+         handleSuccess(val, file, fileList){
+             console.log('success', val, typeof val);
+             this.my_notify(val);
+             this.$refs.upload.clearFiles();
+         },
+         handleRemove(file, fileList) {
+            console.log(file, fileList);
+          },
+          handlePreview(file) {
+            console.log(file);
+          },
+          handleExceed(files, fileList) {
+            this.$message.warning(`当前限制选择 1 个文件`);
+          },
+          beforeRemove(file, fileList) {
+            return this.$confirm(`确定移除 ${ file.name }？`);
+          },
          look_report(index, row){
              this.$router.push({name:'report', params:{id:row.id}})
          },
@@ -177,6 +213,9 @@
        },
       data() {
         return {
+            true:true,
+            false:false,
+            multiple:false,
             loading: true,
             model_scenes:this.$store.state.model_scenes,
             model_cases:this.$store.state.model_cases,
@@ -257,7 +296,9 @@
 
   }
 </script>
-<style scoped>{
-
+<style>
+.upload_xlsx{
+  display: inline-block;
 }
+
 </style>

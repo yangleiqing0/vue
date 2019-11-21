@@ -254,3 +254,7 @@ li,a,i{
   top:25% !important;
   margin-top: 0 !important;
 }
+
+.upload_xlsx>ul, input[type=file]{
+  display: none!important;
+}
