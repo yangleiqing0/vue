@@ -138,6 +138,7 @@
          },
          handleSuccess(val, file, fileList){
              console.log('success', val, typeof val);
+             this.request();
              this.my_notify(val);
              this.$refs.upload.clearFiles();
          },
