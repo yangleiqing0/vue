@@ -103,8 +103,8 @@
                 {key: '测试网络', value: ''},
                 {key: '用例总数', value: ''},
                 {key: '通过总数', value: ''},
-                {key: '失败总数', value: ''},
                 {key: '测试时间', value: ''},
+                {key: '失败总数', value: ''},
                 {key: '分数', value: ''},
               ],
               tableData:[]
@@ -143,8 +143,8 @@
                       this.mail_tableData[3].value = test_pl;
                       this.mail_tableData[4].value = test_sum;
                       this.mail_tableData[5].value = test_success;
-                      this.mail_tableData[6].value = fail_sum;
-                      this.mail_tableData[7].value = time_strftime;
+                      this.mail_tableData[6].value = time_strftime;
+                      this.mail_tableData[7].value = fail_sum;
                       this.mail_tableData[8].value = score;
                       this.tableData = items
                   })

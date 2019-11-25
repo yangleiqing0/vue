@@ -74,11 +74,7 @@
               if (this.$route.params.id && this.$route.params.row === undefined){
                   this.my_get_data(this.$route.params.id, 'scene_list', this)
                   console.log('scene_edit_refresh', this.Form, this.groups, this.$store.state.my_all_table['group_list']);
-                  return
               }
-              this.groups = this.$route.params.groups;
-              this.model_scenes = this.$route.params.model_scenes;
-              this.model_cases = this.$route.params.model_cases;
           },
           submitForm(formName) {
           this.$refs[formName].validate((valid) => {

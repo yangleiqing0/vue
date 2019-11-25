@@ -130,9 +130,6 @@
          },
      },
      methods: {
-          submitUpload() {
-            this.$refs.upload.submit();
-          },
          handleError(val){
              console.log('error', val.response, typeof val.response);
          },
@@ -250,26 +247,26 @@
             this.currentPage = this.$route.params.page?parseInt(this.$route.params.page): 1;
             console.log('totalCount  b', this.totalCount, this.tableData, this.page);
             console.log(this.$store.state.my_all_table[this.table_name+'_list']);
-            if(this.$store.state.my_all_table[this.table_name+'_list'].length === 0){
-                if(localStorage.getItem('my_all_table' + this.table_name+'_list')){
-                  let all_list = this.$store.state.my_list;
-                  console.log('all_list', all_list)
-                  for (let i = 0; i < all_list.length; i++) {
-                      this.$store.state.my_all_table[all_list[i]+'_list'] = JSON.parse(localStorage.getItem('my_all_table' + all_list[i]+'_list'))
-                  }
-                  this.allData = this.$store.state.my_all_table[this.table_name+'_list'];
-                  console.log('全部加载', this.allData)
-                }
-            }
-            if(this.$root.$my_table[this.table_name+'_list'].length === 0){
-                if(localStorage.getItem('my_table' + this.table_name+'_list')){
-                  console.log('首页加载');
-                  this.$root.$my_table[this.table_name+'_list'] = JSON.parse(localStorage.getItem('my_table' + this.table_name+'_list'))
-                }
-            }
+            // if(this.$store.state.my_all_table[this.table_name+'_list'].length === 0){
+            //     if(localStorage.getItem('my_all_table' + this.table_name+'_list')){
+            //       let all_list = this.$store.state.my_list;
+            //       console.log('all_list', all_list)
+            //       for (let i = 0; i < all_list.length; i++) {
+            //           this.$store.state.my_all_table[all_list[i]+'_list'] = JSON.parse(localStorage.getItem('my_all_table' + all_list[i]+'_list'))
+            //       }
+            //       this.allData = this.$store.state.my_all_table[this.table_name+'_list'];
+            //       console.log('全部加载', this.allData)
+            //     }
+            // }
+            // if(this.$root.$my_table[this.table_name+'_list'].length === 0){
+            //     if(localStorage.getItem('my_table' + this.table_name+'_list')){
+            //       console.log('首页加载');
+            //       this.$root.$my_table[this.table_name+'_list'] = JSON.parse(localStorage.getItem('my_table' + this.table_name+'_list'))
+            //     }
+            // }
             this.request();
-            this.my_request(this.table_name + '_list',this, true, false, 1);
-            this.my_request(this.table_name + '_list',this, false, true);
+            // this.my_request(this.table_name + '_list',this, true, false, 1);
+            // this.my_request(this.table_name + '_list',this, false, true);
             console.log('totalCount  a', this.totalCount, this.tableData)
             // this.my_all_request()
             // this.my_request(this.table_name+ '_list', this, true);

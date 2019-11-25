@@ -340,10 +340,12 @@
               if (this.$route.params.row) {
                   this.Form = this.$route.params.row;
               }
-              this.groups = this.$route.params.groups;
-              this.headers = this.$route.params.headers;
-              this.mysqls = this.$route.params.mysqls;
-              this.page = this.$route.params.page;
+              if (this.$route.params){
+                // this.groups = this.$route.params.groups;
+                // this.headers = this.$route.params.headers;
+                // this.mysqls = this.$route.params.mysqls;
+                this.page = this.$route.params.page;
+              }
           },
           test_(){
               this.test_run('case_run', this.Form, this)

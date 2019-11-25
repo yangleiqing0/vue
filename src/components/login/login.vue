@@ -71,7 +71,7 @@
                       that.$root.$user_name = that.ruleForm.username;
                       that.$root.$user_id = res.data.user_id;
                       that.$router.push({name:'case_list'});
-                      that.my_all_request();
+                      // that.my_all_request();
                       that.setlocalStorage(that.ruleForm.username, that.ruleForm.password, that.$root.$user_id);
                   })
               }else {
