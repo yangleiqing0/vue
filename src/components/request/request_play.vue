@@ -73,7 +73,8 @@
               console.log(val);
             },
             get_data(){
-                this.$axios.get(this.$store.state.api + 'request_play')
+                console.log('request_play:', this.$root.$user_id)
+                this.$axios.post(this.$store.state.api + 'request_play',{})
                     .then(res=>{
                         this.tableData = res.list;
                         console.log('play', this.tableData)

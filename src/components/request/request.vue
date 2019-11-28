@@ -163,7 +163,7 @@
           this.scene_async = this.$route.query.scene_async === '1';
           console.log('request:', this.$route.params.id, typeof this.$route.query.scene_async, this.scene_async);
           if(this.$route.params) {
-              this.$axios.post(this.$store.state.api+'request_play', this.$route.params)
+              this.$axios.post(this.$store.state.api+'request_play_list', this.$route.params)
                   .then(res=>{
                       this.tableData = res.list;
                       this.scene_case_list = res.scene_case_list;

@@ -26,7 +26,25 @@ Vue.component('MySucTag', my_success_tag);
 Vue.component('MyCheckBox', my_checkbox);
 
 
-
+let that = new Vue({
+  render: h => h(App),
+  router,
+  store,
+  data(){
+    return {
+    }
+  },
+  created(){
+    if(localStorage.getItem('uid')) {
+      this.$root.$user_id = localStorage.getItem('uid')
+      this.$root.$user_name = localStorage.getItem('username')
+    }else if(this.$root.$user_id === 0 && localStorage.getItem('uid') === null){
+       this.$router.push({path:'/login'})
+    }
+    console.log('uid app:', this.$root.$user_id);
+    // this.my_all_request();
+  }
+}).$mount('#app');
 
 // Axios.defaults.baseURL = 'http://127.0.0.1:5000/';
 Axios.defaults.headers['Content-Type'] = 'application/json';
@@ -79,29 +97,6 @@ Axios.interceptors.response.use(res => {
 );
 
 Vue.prototype.$axios = Axios;
-
-let that = new Vue({
-  render: h => h(App),
-  router,
-  store,
-  data(){
-    return {
-    }
-  },
-  created(){
-    if(localStorage.getItem('uid')) {
-      this.$root.$user_id = localStorage.getItem('uid')
-      this.$root.$user_name = localStorage.getItem('username')
-    }else if(this.$root.$user_id === 0 && localStorage.getItem('uid') === null){
-       this.$router.push({path:'/login'})
-    }
-    console.log('uid app:', this.$root.$user_id);
-    // this.my_all_request();
-  }
-}).$mount('#app');
-
-
-
 
 
 router.beforeEach((to, from, next) => {
