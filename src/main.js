@@ -24,34 +24,12 @@ Vue.component('MyTable', my_table);
 Vue.component('MyMailTable', mail_table);
 Vue.component('MySucTag', my_success_tag);
 Vue.component('MyCheckBox', my_checkbox);
-
-
-let that = new Vue({
-  render: h => h(App),
-  router,
-  store,
-  data(){
-    return {
-    }
-  },
-  created(){
-    if(localStorage.getItem('uid')) {
-      this.$root.$user_id = localStorage.getItem('uid')
-      this.$root.$user_name = localStorage.getItem('username')
-    }else if(this.$root.$user_id === 0 && localStorage.getItem('uid') === null){
-       this.$router.push({path:'/login'})
-    }
-    console.log('uid app:', this.$root.$user_id);
-    // this.my_all_request();
-  }
-}).$mount('#app');
-
-// Axios.defaults.baseURL = 'http://127.0.0.1:5000/';
-Axios.defaults.headers['Content-Type'] = 'application/json';
-
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
+Vue.prototype.$axios = Axios;
+
+Axios.defaults.headers['Content-Type'] = 'application/json';
 
 Axios.interceptors.request.use(res => {
   // 对响应数据做处理
@@ -69,9 +47,6 @@ Axios.interceptors.request.use(res => {
 
 });
 
-
-
-//  对每一个axios请求进行预处理
 Axios.interceptors.response.use(res => {
   // 对响应数据做处理
   // console.log("对响应数据做处理", res)
@@ -96,7 +71,35 @@ Axios.interceptors.response.use(res => {
 }
 );
 
-Vue.prototype.$axios = Axios;
+let that = new Vue({
+  render: h => h(App),
+  router,
+  store,
+  data(){
+    return {
+    }
+  },
+  created(){
+    if(localStorage.getItem('uid')) {
+      this.$root.$user_id = localStorage.getItem('uid')
+      this.$root.$user_name = localStorage.getItem('username')
+    }else if(this.$root.$user_id === 0 && localStorage.getItem('uid') === null){
+       this.$router.push({path:'/login'})
+    }
+    console.log('uid app:', this.$root.$user_id);
+    // this.my_all_request();
+  }
+}).$mount('#app');
+
+// Axios.defaults.baseURL = 'http://127.0.0.1:5000/';
+
+
+
+
+//  对每一个axios请求进行预处理
+
+
+
 
 
 router.beforeEach((to, from, next) => {
