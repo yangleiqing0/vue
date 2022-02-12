@@ -14,7 +14,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "ajv": "^5.0.0",
+    "ajv": "^6.12.3",
     "amaze-vue": "^1.1.18",
     "axios": "^0.19.0",
     "dependencies": "0.0.1",
